@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next';
-import { Inter, Manrope } from 'next/font/google';
+import { Inter, Manrope, Playfair_Display } from 'next/font/google';
 import '../globals.css';
 import { defaultViewport } from '@/lib';
 import { Navbar, Footer, ThemeProvider } from '@/components/shared';
@@ -17,6 +17,11 @@ const inter = Inter({
 
 const manrope = Manrope({
     variable: '--font-manrope',
+    subsets: ['latin'],
+});
+
+const playfair = Playfair_Display({
+    variable: '--font-playfair',
     subsets: ['latin'],
 });
 
@@ -132,7 +137,7 @@ export default async function RootLayout({
                     dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
                 />
             </head>
-            <body className={`${inter.variable} ${manrope.variable} antialiased`}>
+            <body className={`${inter.variable} ${manrope.variable} ${playfair.variable} antialiased`}>
                 <NextIntlClientProvider messages={messages}>
                     <ThemeProvider
                         attribute="class"

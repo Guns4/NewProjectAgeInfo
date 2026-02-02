@@ -6,7 +6,7 @@ import { PremiumCard } from "@/components/ui/card-premium";
 import { FloatingInput } from "@/components/ui/input-floating";
 import { BirthdayCountdown } from "@/components/features/birthday-countdown";
 import { SecondsCounter } from "@/components/features/SecondsCounter";
-import { useAgeCalculator, AgeResult } from "@/hooks/calculator/useAgeCalculator";
+import { useAgeCalculator } from "@/hooks/calculator/useAgeCalculator";
 import { cn, formatUnit } from "@/lib/utils";
 import { IdentitySection } from "@/components/features/IdentitySection";
 
@@ -55,8 +55,44 @@ const CountUp = ({ value, label, className }: { value: number; label: string; cl
 
 import { useSearchHistory } from "@/hooks/useSearchHistory";
 import { HistoryChips } from "@/components/features/HistoryChips";
+import { LifeProgress } from "@/components/features/LifeProgress";
+import { TimeRelativity } from "@/components/features/TimeRelativity";
 import confetti from "canvas-confetti";
-import { Rocket, Baby, PartyPopper } from "lucide-react";
+import { Rocket, Baby } from "lucide-react";
+import { useMilestones } from "@/hooks/useMilestones";
+import { MilestoneCards } from "@/components/features/MilestoneCards";
+import { YearProgress } from "@/components/features/YearProgress";
+import { calculateBiologicalStats } from "@/lib/biologicalStats";
+import { BiologicalStats } from "@/components/features/BiologicalStats";
+import { getTimeCapsule, type TimeCapsule } from "@/services/historicalService";
+import { getAgeComparisons, getCosmicContext } from "@/services/comparisonService";
+
+// Lazy load heavy components
+import dynamic from "next/dynamic";
+
+const TimeCapsuleComponent = dynamic(
+    () => import("@/components/features/TimeCapsule").then(mod => mod.TimeCapsule),
+    {
+        loading: () => <div className="h-96 w-full rounded-3xl bg-muted/20 animate-pulse" />,
+        ssr: false
+    }
+);
+
+const AgeComparison = dynamic(
+    () => import("@/components/features/AgeComparison").then(mod => mod.AgeComparison),
+    {
+        loading: () => <div className="h-96 w-full rounded-2xl bg-muted/20 animate-pulse" />,
+        ssr: false
+    }
+);
+
+const NewspaperView = dynamic(
+    () => import("@/components/features/NewspaperView").then(mod => mod.NewspaperView),
+    {
+        loading: () => <div className="h-96 w-full rounded-sm bg-muted/20 animate-pulse" />,
+        ssr: false
+    }
+);
 
 export function AgeDashboard({ className }: AgeDashboardProps) {
     const router = useRouter();
@@ -67,6 +103,7 @@ export function AgeDashboard({ className }: AgeDashboardProps) {
 
     const [dateString, setDateString] = React.useState<string>("");
     const [birthDate, setBirthDate] = React.useState<Date | null>(null);
+    const [timeCapsule, setTimeCapsule] = React.useState<TimeCapsule | null>(null);
 
     // Derived states for Edge Cases
     const [dashboardMode, setDashboardMode] = React.useState<'standard' | 'future' | 'newborn' | 'birthday'>('standard');
@@ -75,8 +112,8 @@ export function AgeDashboard({ className }: AgeDashboardProps) {
     const updateDateSource = (value: string) => {
         setDateString(value);
         // ... (existing helper logic, just copy it if replacing block, or assume it exists if I target below it)
-        // Wait, I am replacing the top part of the function, so I need to include the helper if it's in the range. 
-        // My StartLine is 56 (export function...). 
+        // Wait, I am replacing the top part of the function, so I need to include the helper if it's in the range.
+        // My StartLine is 56 (export function...).
 
         // Let's implement the FULL Logic here because I need to insert the derived state logic which depends on birthDate.
 
@@ -172,10 +209,46 @@ export function AgeDashboard({ className }: AgeDashboardProps) {
                 return () => clearTimeout(timer);
             }
         }
+        return undefined;
     }, [birthDate, dateString, addToHistory]); // Added addToHistory to dependencies
+
+    // Fase 295.5: Reset handler for "Check Someone Else" CTA
+    const handleReset = () => {
+        // Smooth transition with animation
+        setDateString('');
+        setBirthDate(null);
+
+        // Clear URL param
+        const params = new URLSearchParams(searchParams.toString());
+        params.delete('dob');
+        router.replace(`${pathname}?${params.toString()}`, { scroll: false });
+
+        // Scroll to top smoothly
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
 
     // Use the hook
     const { age, error } = useAgeCalculator(birthDate);
+
+    // Fase 301-325: Milestones hook
+    const { upcomingMilestones, yearProgress } = useMilestones(birthDate, age);
+
+    // Fase 326-350: Biological statistics
+    const biologicalStats = age ? calculateBiologicalStats(age.totalDays, age.totalHours) : null;
+
+    // Fase 351-380: Fetch time capsule data
+    React.useEffect(() => {
+        if (birthDate) {
+            const year = birthDate.getFullYear();
+            getTimeCapsule(year).then(setTimeCapsule);
+        } else {
+            setTimeCapsule(null);
+        }
+    }, [birthDate]);
+
+    // Fase 381-400: Age comparisons and cosmic context
+    const ageComparisons = age ? getAgeComparisons(age.years) : [];
+    const cosmicContext = birthDate ? getCosmicContext(birthDate) : null;
 
     // Helper for determining visibility (Zero Handling Phase 190.3)
     // Rule: Hide 0 months unless total age < 1 month (newborn)
@@ -187,10 +260,8 @@ export function AgeDashboard({ className }: AgeDashboardProps) {
         return {
             year: currentAge.years > 0,
             month: currentAge.months > 0 || isNewborn,
-            // Note: If newborn (0y, 0m, 5d), month is 0 but we might want to hide it based on "Hide... unless...". 
+            // Note: If newborn (0y, 0m, 5d), month is 0 but we might want to hide it based on "Hide... unless...".
             // The prompt says: "Hide '0 Month' ... EXCEPT if total age < 1 month".
-            // So if total age < 1 month (isNewborn), we SHOW '0 Month'? 
-            // "Sembunyikan ... KECUALI jika umurnya total di bawah 1 bulan".
             // This means for a 5 day old baby, we see "0 Bulan, 5 Hari".
             // This seems logical for completeness for babies.
 
@@ -399,7 +470,68 @@ export function AgeDashboard({ className }: AgeDashboardProps) {
                         initial="hidden"
                         animate="visible"
                     >
-                        <IdentitySection date={birthDate} className="mt-8" />
+                        <IdentitySection date={birthDate} age={age || undefined} onReset={handleReset} className="mt-8" />
+
+                        {/* Fase 301-325: Micro-Milestones */}
+                        {upcomingMilestones.length > 0 && (
+                            <MilestoneCards milestones={upcomingMilestones} className="mt-8" />
+                        )}
+
+                        {/* Year Progress */}
+                        <YearProgress
+                            percentage={yearProgress.percentage}
+                            daysRemaining={yearProgress.daysRemaining}
+                            daysPassed={yearProgress.daysPassed}
+                            daysTotal={yearProgress.daysTotal}
+                            className="mt-8"
+                        />
+
+                        {/* Fase 395.1: Life Progress Meter */}
+                        {age && (
+                            <LifeProgress
+                                age={age}
+                                yearProgress={yearProgress.percentage}
+                                className="mt-8"
+                            />
+                        )}
+
+                        {/* Fase 395.2: Time Relativity */}
+                        {age && birthDate && (
+                            <TimeRelativity
+                                birthDate={birthDate}
+                                ageInYears={age.years}
+                                className="mt-8"
+                            />
+                        )}
+
+                        {/* Fase 395.3: Vintage Newspaper */}
+                        {birthDate && timeCapsule && timeCapsule.hasData && (
+                            <NewspaperView
+                                date={birthDate}
+                                data={timeCapsule}
+                                className="mt-12"
+                            />
+                        )}
+
+                        {/* Fase 326-350: Biological Statistics */}
+                        {biologicalStats && (
+                            <BiologicalStats stats={biologicalStats} className="mt-8" />
+                        )}
+
+                        {/* Fase 351-380: Time Capsule */}
+                        {timeCapsule && timeCapsule.hasData && (
+                            <TimeCapsuleComponent data={timeCapsule} className="mt-8" />
+                        )}
+
+                        {/* Fase 381-400: Age Comparison */}
+                        {age && cosmicContext && (
+                            <AgeComparison
+                                comparisons={ageComparisons}
+                                cosmicContext={cosmicContext}
+                                currentAge={age.years}
+                                className="mt-8"
+                            />
+                        )}
                     </motion.div>
                 )}
             </AnimatePresence>

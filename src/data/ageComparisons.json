@@ -1,0 +1,114 @@
+{
+    "23": [
+        {
+            "person": "Steve Jobs",
+            "achievement": "mengerjakan Apple I bersama Steve Wozniak",
+            "year": 1978,
+            "category": "technology"
+        },
+        {
+            "person": "Mark Zuckerberg",
+            "achievement": "meluncurkan Facebook ke seluruh universitas AS",
+            "year": 2007,
+            "category": "technology"
+        }
+    ],
+    "25": [
+        {
+            "person": "Bill Gates",
+            "achievement": "mendirikan Microsoft",
+            "year": 1980,
+            "category": "technology"
+        },
+        {
+            "person": "Oprah Winfrey",
+            "achievement": "menjadi news anchor termuda di Nashville",
+            "year": 1979,
+            "category": "business"
+        }
+    ],
+    "26": [
+        {
+            "person": "Albert Einstein",
+            "achievement": "mempublikasikan teori relativitas khusus",
+            "year": 1905,
+            "category": "science"
+        },
+        {
+            "person": "Larry Page & Sergey Brin",
+            "achievement": "mendirikan Google",
+            "year": 1998,
+            "category": "technology"
+        }
+    ],
+    "30": [
+        {
+            "person": "Alexander Agung",
+            "achievement": "menaklukkan Persia dan membangun imperium terbesar",
+            "year": "330 SM",
+            "category": "history"
+        },
+        {
+            "person": "J.K. Rowling",
+            "achievement": "menyelesaikan naskah Harry Potter pertama",
+            "year": 1995,
+            "category": "arts"
+        }
+    ],
+    "35": [
+        {
+            "person": "Mozart",
+            "achievement": "menciptakan lebih dari 600 karya musik",
+            "year": 1791,
+            "category": "arts"
+        },
+        {
+            "person": "Elon Musk",
+            "achievement": "menjadi CEO SpaceX dan merevolusi industri antariksa",
+            "year": 2006,
+            "category": "technology"
+        }
+    ],
+    "40": [
+        {
+            "person": "Henry Ford",
+            "achievement": "meluncurkan Model T yang merevolusi transportasi",
+            "year": 1908,
+            "category": "business"
+        },
+        {
+            "person": "Barack Obama",
+            "achievement": "terpilih sebagai Senator AS",
+            "year": 2004,
+            "category": "history"
+        }
+    ],
+    "50": [
+        {
+            "person": "Ray Kroc",
+            "achievement": "mengakuisisi McDonald's dan membangun franchise global",
+            "year": 1954,
+            "category": "business"
+        },
+        {
+            "person": "Charles Darwin",
+            "achievement": "mempublikasikan 'On the Origin of Species'",
+            "year": 1859,
+            "category": "science"
+        }
+    ],
+    "65": [
+        {
+            "person": "Colonel Sanders",
+            "achievement": "mendirikan Kentucky Fried Chicken (KFC)",
+            "year": 1952,
+            "category": "business"
+        },
+        {
+            "person": "Nelson Mandela",
+            "achievement": "dibebaskan dari penjara setelah 27 tahun",
+            "year": 1990,
+            "category": "history"
+        }
+    ]
+}

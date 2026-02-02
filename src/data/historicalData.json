@@ -1,0 +1,146 @@
+{
+    "1980": {
+        "worldEvents": [
+            {
+                "title": "Rubik's Cube Global Launch",
+                "date": "1980-05-01",
+                "description": "Mainan puzzle ikonik diluncurkan secara internasional dan menjadi fenomena budaya."
+            },
+            {
+                "title": "CNN Launched",
+                "date": "1980-06-01",
+                "description": "Saluran berita 24 jam pertama di dunia mulai mengudara."
+            }
+        ],
+        "popCulture": [
+            {
+                "title": "The Empire Strikes Back",
+                "category": "film",
+                "description": "Sekuel Star Wars menjadi film terlaris tahun ini."
+            },
+            {
+                "title": "\"Call Me\" - Blondie",
+                "category": "music",
+                "description": "Lagu #1 di Billboard Hot 100 tahun 1980."
+            }
+        ],
+        "technology": [
+            {
+                "title": "Pac-Man Released",
+                "description": "Game arcade ikonik yang mengubah industri video game selamanya."
+            },
+            {
+                "title": "Post-it Notes Launched",
+                "description": "3M meluncurkan sticky notes yang kini ada di mana-mana."
+            }
+        ]
+    },
+    "1990": {
+        "worldEvents": [
+            {
+                "title": "Nelson Mandela Released",
+                "date": "1990-02-11",
+                "description": "Setelah 27 tahun dipenjara, Mandela dibebaskan, mengakhiri era apartheid."
+            },
+            {
+                "title": "Hubble Telescope Launched",
+                "date": "1990-04-24",
+                "description": "Teleskop luar angkasa Hubble diluncurkan, membuka mata kita ke alam semesta."
+            }
+        ],
+        "popCulture": [
+            {
+                "title": "Home Alone",
+                "category": "film",
+                "description": "Film komedi Macaulay Culkin menjadi box office phenomenon."
+            },
+            {
+                "title": "\"Vogue\" - Madonna",
+                "category": "music",
+                "description": "Hit Madonna yang mendefinisikan kultur pop tahun 90-an."
+            }
+        ],
+        "technology": [
+            {
+                "title": "World Wide Web Invented",
+                "description": "Tim Berners-Lee menciptakan WWW, mengubah dunia digital selamanya."
+            },
+            {
+                "title": "Adobe Photoshop 1.0",
+                "description": "Software editing gambar revolusioner diluncurkan pertama kali."
+            }
+        ]
+    },
+    "2000": {
+        "worldEvents": [
+            {
+                "title": "ISS First Crew",
+                "date": "2000-11-02",
+                "description": "Kru pertama tiba di Stasiun Luar Angkasa Internasional, memulai kehadiran manusia permanen di luar angkasa."
+            },
+            {
+                "title": "Sydney Olympics",
+                "date": "2000-09-15",
+                "description": "Olimpiade Milenium diadakan di Sydney dengan spektakuler."
+            }
+        ],
+        "popCulture": [
+            {
+                "title": "Gladiator",
+                "category": "film",
+                "description": "Film epik Russell Crowe memenangkan Best Picture Oscar."
+            },
+            {
+                "title": "\"It's My Life\" - Bon Jovi",
+                "category": "music",
+                "description": "Lagu rock anthem yang memperkenalkan Bon Jovi ke generasi baru."
+            }
+        ],
+        "technology": [
+            {
+                "title": "USB Flash Drive",
+                "description": "IBM memperkenalkan USB flash drive pertama ke consumer market."
+            },
+            {
+                "title": "PlayStation 2 Released",
+                "description": "Konsol game terlaris sepanjang masa diluncurkan oleh Sony."
+            }
+        ]
+    },
+    "2010": {
+        "worldEvents": [
+            {
+                "title": "Burj Khalifa Opened",
+                "date": "2010-01-04",
+                "description": "Gedung tertinggi di dunia resmi dibuka di Dubai."
+            },
+            {
+                "title": "Winter Olympics Vancouver",
+                "date": "2010-02-12",
+                "description": "Olimpiade musim dingin yang sukses digelar di Kanada."
+            }
+        ],
+        "popCulture": [
+            {
+                "title": "Toy Story 3",
+                "category": "film",
+                "description": "Pixar mengakhiri trilogy dengan sempurna, meraih $1 miliar box office."
+            },
+            {
+                "title": "\"Baby\" - Justin Bieber",
+                "category": "music",
+                "description": "Lagu viral yang menandai era baru pop star dari YouTube."
+            }
+        ],
+        "technology": [
+            {
+                "title": "iPad Launched",
+                "description": "Apple menciptakan kategori baru: tablet modern."
+            },
+            {
+                "title": "Instagram Founded",
+                "description": "Apps photo-sharing yang akan mengubah social media selamanya."
+            }
+        ]
+    }
+}

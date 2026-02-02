@@ -11,6 +11,7 @@ interface IdentityCardProps {
     colorTheme: 'purple' | 'blue' | 'amber' | 'emerald' | 'rose' | 'teal';
     className?: string;
     delay?: number;
+    backgroundElement?: React.ReactNode;
 }
 
 const colorStyles = {
@@ -30,7 +31,8 @@ export function IdentityCard({
     icon: Icon,
     colorTheme,
     className,
-    delay = 0
+    delay = 0,
+    backgroundElement
 }: IdentityCardProps) {
     const theme = colorStyles[colorTheme];
 
@@ -73,6 +75,13 @@ export function IdentityCard({
                     )}
                 </div>
             </div>
+
+            {/* Optional Background Element (e.g., Zodiac Constellation) */}
+            {backgroundElement && (
+                <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                    {backgroundElement}
+                </div>
+            )}
 
             {/* Decorative Gradient Blob */}
             <div
