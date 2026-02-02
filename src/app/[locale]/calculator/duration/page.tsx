@@ -1,4 +1,3 @@
-import { useTranslations } from "next-intl"
 import { DateDurationCalculator } from "@/components/features/calculator/DateDurationCalculator"
 
 export const metadata = {

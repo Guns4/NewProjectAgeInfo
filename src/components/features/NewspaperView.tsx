@@ -20,13 +20,13 @@ export function NewspaperView({ date, data, className = '' }: NewspaperViewProps
     });
 
     // Determine the "Headline" event (first world event)
-    const headlineEvent = data.events.worldEvents[0];
+    const headlineEvent = data.worldEvents[0];
     const subEvents = [
-        ...data.events.worldEvents.slice(1),
-        ...data.events.technology.slice(0, 1),
+        ...data.worldEvents.slice(1),
+        ...data.technology.slice(0, 1),
     ].slice(0, 3); // Take next 3 mixed events
 
-    const popCulture = data.events.popCulture[0];
+    const popCulture = data.popCulture[0];
 
     return (
         <div className={className}>
@@ -52,7 +52,7 @@ export function NewspaperView({ date, data, className = '' }: NewspaperViewProps
                     <div className="flex justify-between items-center text-xs md:text-sm font-serif border-t border-black dark:border-[#e0d0b0] pt-2 mt-2 uppercase tracking-widest">
                         <span>Vol. {date.getFullYear()}</span>
                         <span className="font-bold">{formattedDate}</span>
-                        <span>{data.generation} Edition</span>
+                        <span>Special Edition</span>
                     </div>
                 </header>
 
@@ -94,7 +94,7 @@ export function NewspaperView({ date, data, className = '' }: NewspaperViewProps
                             <h3 className="font-playfair font-bold text-lg mb-2 text-center uppercase border-b border-black/10 pb-1">Stats</h3>
                             <div className="text-center font-mono text-sm space-y-1">
                                 <p>Year: {date.getFullYear()}</p>
-                                <p>Era: {data.generation}</p>
+                                <p>Volume: {date.getFullYear() - 1900}</p>
                             </div>
                         </div>
 

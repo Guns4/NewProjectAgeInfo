@@ -1,6 +1,21 @@
 import { defineConfig, globalIgnores } from 'eslint/config';
-import nextVitals from 'eslint-config-next/core-web-vitals';
-import nextTs from 'eslint-config-next/typescript';
+// ESLint Config Next doesn't support Flat Config natively yet as of 15.1.
+// We should import the specific JS files if they are exposed, or use a compat utility.
+// Trying the suggested fix from the error message first.
+// If that fails, we might need `flat-compat`.
+import { FlatCompat } from "@eslint/eslintrc";
+import { dirname } from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+const compat = new FlatCompat({
+  baseDirectory: __dirname,
+});
+
+const nextConfig = compat.extends("next/core-web-vitals", "next/typescript");
+
 import prettierConfig from 'eslint-config-prettier';
 import prettierPlugin from 'eslint-plugin-prettier';
 
@@ -8,8 +23,7 @@ const eslintConfig = defineConfig([
   // ============================================
   // NEXT.JS CORE CONFIGURATIONS
   // ============================================
-  ...nextVitals,
-  ...nextTs,
+  ...nextConfig,
 
   // ============================================
   // PRETTIER INTEGRATION

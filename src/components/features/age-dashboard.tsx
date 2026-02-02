@@ -7,6 +7,7 @@ import { FloatingInput } from "@/components/ui/input-floating";
 import { BirthdayCountdown } from "@/components/features/birthday-countdown";
 import { SecondsCounter } from "@/components/features/SecondsCounter";
 import { useAgeCalculator } from "@/hooks/calculator/useAgeCalculator";
+import { useHistoricalData } from "@/hooks/useHistoricalData";
 import { cn, formatUnit } from "@/lib/utils";
 import { IdentitySection } from "@/components/features/IdentitySection";
 
@@ -94,6 +95,14 @@ const NewspaperView = dynamic(
     }
 );
 
+const NostalgiaView = dynamic(
+    () => import("@/components/features/NostalgiaView").then(mod => mod.NostalgiaView),
+    {
+        loading: () => <div className="h-64 w-full rounded-xl bg-slate-900/50 animate-pulse border-4 border-slate-700/50" />,
+        ssr: false
+    }
+);
+
 export function AgeDashboard({ className }: AgeDashboardProps) {
     const router = useRouter();
     const pathname = usePathname();
@@ -103,7 +112,8 @@ export function AgeDashboard({ className }: AgeDashboardProps) {
 
     const [dateString, setDateString] = React.useState<string>("");
     const [birthDate, setBirthDate] = React.useState<Date | null>(null);
-    const [timeCapsule, setTimeCapsule] = React.useState<TimeCapsule | null>(null);
+    // const [timeCapsule, setTimeCapsule] = React.useState<TimeCapsule | null>(null); // Replaced by React Query
+    const { data: timeCapsule } = useHistoricalData(birthDate?.getFullYear() || null);
 
     // Derived states for Edge Cases
     const [dashboardMode, setDashboardMode] = React.useState<'standard' | 'future' | 'newborn' | 'birthday'>('standard');
@@ -237,14 +247,7 @@ export function AgeDashboard({ className }: AgeDashboardProps) {
     const biologicalStats = age ? calculateBiologicalStats(age.totalDays, age.totalHours) : null;
 
     // Fase 351-380: Fetch time capsule data
-    React.useEffect(() => {
-        if (birthDate) {
-            const year = birthDate.getFullYear();
-            getTimeCapsule(year).then(setTimeCapsule);
-        } else {
-            setTimeCapsule(null);
-        }
-    }, [birthDate]);
+    // Handled by useHistoricalData hook (Fase 395.6)
 
     // Fase 381-400: Age comparisons and cosmic context
     const ageComparisons = age ? getAgeComparisons(age.years) : [];
@@ -509,6 +512,14 @@ export function AgeDashboard({ className }: AgeDashboardProps) {
                             <NewspaperView
                                 date={birthDate}
                                 data={timeCapsule}
+                                className="mt-12"
+                            />
+                        )}
+
+                        {/* Fase 395.5: Child-Era Nostalgia */}
+                        {birthDate && (
+                            <NostalgiaView
+                                birthYear={birthDate.getFullYear()}
                                 className="mt-12"
                             />
                         )}

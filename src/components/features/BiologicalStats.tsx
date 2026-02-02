@@ -11,10 +11,111 @@ import type { BiologicalStats as BioStatsType } from '@/lib/biologicalStats';
 import { formatBioStat } from '@/lib/biologicalStats';
 import { generateBioStatShareText, shareContent, getShareUrl } from '@/lib/shareUtils';
 import { useState } from 'react';
+import { useLiveCounter } from '@/hooks/useLiveCounter';
 
 interface BiologicalStatsProps {
     stats: BioStatsType;
     className?: string;
+}
+
+// Sub-component for individual cards to enable Hook usage
+function BioCard({ stat, index, handleShare, shareLoading, shareSuccess }: {
+    stat: any,
+    index: number,
+    handleShare: (stat: any) => void,
+    shareLoading: string | null,
+    shareSuccess: string | null
+}) {
+    const Icon = stat.icon;
+
+    // Determine if this stat needs live counting
+    // Heart rate: ~100,000/day = ~1.15/sec (wait, 100,000 / 86400 = 1.157)
+    // Breathing rate: ~20,000/day = ~0.23/sec
+    const isLive = stat.label === 'Detak Jantung' || stat.label === 'Napas';
+    const rate = stat.label === 'Detak Jantung' ? 1.1574 : 0.2315;
+
+    // Only use hook if live, otherwise just value
+    // Note: Hooks must be called unconditionally. We'll use the hook always but with rate 0 for non-live?
+    // Or just use the hook and ignore result if not needed.
+    const liveValue = useLiveCounter(stat.value, isLive ? rate : 0);
+
+    const displayValue = isLive
+        // For live stats, we format the live counter
+        ? formatBioStat(liveValue)
+        // For static stats (sleep/dreams), we use the pre-formatted value or format the raw value
+        : stat.formatted;
+
+    return (
+        <motion.div
+            key={stat.label}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: index * 0.1, duration: 0.5 }}
+            className={`relative overflow-hidden rounded-3xl border p-8 backdrop-blur-sm bg-white/40 dark:bg-black/20 ${stat.color.bg} ${stat.color.border}`}
+        >
+            {/* Animated Icon */}
+            <div className={`mb-6 ${stat.color.icon}`}>
+                <Icon
+                    className="w-12 h-12"
+                    style={{
+                        animation: `${stat.animation} ${stat.animation === 'heartbeat' ? '1.5s' :
+                            stat.animation === 'breathe' ? '3s' :
+                                stat.animation === 'glow' ? '2s' :
+                                    '2.5s'
+                            } ease-in-out infinite`,
+                    }}
+                />
+            </div>
+
+            {/* Label */}
+            <p className="text-xs font-semibold uppercase tracking-wider opacity-60 mb-2">
+                {stat.label}
+            </p>
+
+            {/* Value */}
+            {/* Use tabular-nums to prevent jittering when numbers change rapidly */}
+            <h4 className={`text-4xl font-bold mb-2 ${stat.color.text} tabular-nums`}>
+                {displayValue}
+            </h4>
+
+            {/* Description */}
+            <p className="text-sm text-muted-foreground italic mb-4">
+                {stat.description}
+            </p>
+
+            {/* Share Button */}
+            <button
+                onClick={() => handleShare(stat)}
+                disabled={shareLoading === stat.label}
+                className={`w-full flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-300 ${shareSuccess === stat.label
+                    ? 'bg-green-500/20 text-green-700 dark:text-green-300 border border-green-500/30'
+                    : `${stat.color.bg} ${stat.color.border} ${stat.color.text} border hover:shadow-md`
+                    }`}
+            >
+                {shareLoading === stat.label ? (
+                    <>
+                        <div className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
+                        Berbagi...
+                    </>
+                ) : shareSuccess === stat.label ? (
+                    <>
+                        ✓ Tersalin!
+                    </>
+                ) : (
+                    <>
+                        <Share2 className="w-4 h-4" />
+                        Bagikan Fakta Unik
+                    </>
+                )}
+            </button>
+
+            {/* Decorative blob */}
+            <div
+                className={`absolute -right-8 -bottom-8 w-32 h-32 rounded-full blur-3xl opacity-20 pointer-events-none ${stat.color.bg.replace('/10', '/30')}`}
+            />
+        </motion.div>
+    );
 }
 
 export function BiologicalStats({ stats, className }: BiologicalStatsProps) {
@@ -23,6 +124,9 @@ export function BiologicalStats({ stats, className }: BiologicalStatsProps) {
     const bioData = [
         {
             icon: Heart,
+            // ... (keep static data definition in render or move outside)
+            // Ideally move outside but 'stats' prop is variable.
+            // Let's keep it here.
             label: 'Detak Jantung',
             value: stats.heartbeats,
             formatted: formatBioStat(stats.heartbeats),
@@ -129,87 +233,23 @@ export function BiologicalStats({ stats, className }: BiologicalStatsProps) {
                     viewport={{ once: true }}
                     transition={{ duration: 0.5 }}
                 >
-                    <h3 className="text-2xl font-bold mb-2">Statistik Biologis</h3>
+                    <h3 className="text-2xl font-bold mb-2">Statistik Biologis (Live)</h3>
                     <p className="text-sm text-muted-foreground mb-6">
-                        Estimasi akumulatif sejak kamu lahir
+                        Estimasi akumulatif yang terus berjalan
                     </p>
                 </motion.div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {bioData.map((stat, index) => {
-                        const Icon = stat.icon;
-
-                        return (
-                            <motion.div
-                                key={stat.label}
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: index * 0.1, duration: 0.5 }}
-                                className={`relative overflow-hidden rounded-3xl border p-8 backdrop-blur-sm bg-white/40 dark:bg-black/20 ${stat.color.bg} ${stat.color.border}`}
-                            >
-                                {/* Animated Icon */}
-                                <div className={`mb-6 ${stat.color.icon}`}>
-                                    <Icon
-                                        className="w-12 h-12"
-                                        style={{
-                                            animation: `${stat.animation} ${stat.animation === 'heartbeat' ? '1.5s' :
-                                                stat.animation === 'breathe' ? '3s' :
-                                                    stat.animation === 'glow' ? '2s' :
-                                                        '2.5s'
-                                                } ease-in-out infinite`,
-                                        }}
-                                    />
-                                </div>
-
-                                {/* Label */}
-                                <p className="text-xs font-semibold uppercase tracking-wider opacity-60 mb-2">
-                                    {stat.label}
-                                </p>
-
-                                {/* Value */}
-                                <h4 className={`text-4xl font-bold mb-2 ${stat.color.text}`}>
-                                    {stat.formatted}
-                                </h4>
-
-                                {/* Description */}
-                                <p className="text-sm text-muted-foreground italic mb-4">
-                                    {stat.description}
-                                </p>
-
-                                {/* Share Button */}
-                                <button
-                                    onClick={() => handleShare(stat)}
-                                    disabled={shareLoading === stat.label}
-                                    className={`w-full flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-300 ${shareSuccess === stat.label
-                                            ? 'bg-green-500/20 text-green-700 dark:text-green-300 border border-green-500/30'
-                                            : `${stat.color.bg} ${stat.color.border} ${stat.color.text} border hover:shadow-md`
-                                        }`}
-                                >
-                                    {shareLoading === stat.label ? (
-                                        <>
-                                            <div className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
-                                            Berbagi...
-                                        </>
-                                    ) : shareSuccess === stat.label ? (
-                                        <>
-                                            ✓ Tersalin!
-                                        </>
-                                    ) : (
-                                        <>
-                                            <Share2 className="w-4 h-4" />
-                                            Bagikan Fakta Unik
-                                        </>
-                                    )}
-                                </button>
-
-                                {/* Decorative blob */}
-                                <div
-                                    className={`absolute -right-8 -bottom-8 w-32 h-32 rounded-full blur-3xl opacity-20 pointer-events-none ${stat.color.bg.replace('/10', '/30')}`}
-                                />
-                            </motion.div>
-                        );
-                    })}
+                    {bioData.map((stat, index) => (
+                        <BioCard
+                            key={stat.label}
+                            stat={stat}
+                            index={index}
+                            handleShare={(s) => handleShare(s)}
+                            shareLoading={shareLoading}
+                            shareSuccess={shareSuccess}
+                        />
+                    ))}
                 </div>
             </div>
         </>

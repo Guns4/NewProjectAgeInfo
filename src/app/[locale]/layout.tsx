@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next';
-import { Inter, Manrope, Playfair_Display } from 'next/font/google';
+import { Inter, Manrope, Playfair_Display, Press_Start_2P } from 'next/font/google';
 import '../globals.css';
 import { defaultViewport } from '@/lib';
 import { Navbar, Footer, ThemeProvider } from '@/components/shared';
@@ -9,6 +9,7 @@ import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
 import { Toaster } from '@/components/ui';
 import { generateWebsiteSchema } from '@/lib/seo/structured-data';
+import { QueryProvider } from '@/components/providers/QueryProvider';
 
 const inter = Inter({
     variable: '--font-inter',
@@ -22,6 +23,12 @@ const manrope = Manrope({
 
 const playfair = Playfair_Display({
     variable: '--font-playfair',
+    subsets: ['latin'],
+});
+
+const pressStart = Press_Start_2P({
+    weight: '400',
+    variable: '--font-press-start',
     subsets: ['latin'],
 });
 
@@ -137,21 +144,23 @@ export default async function RootLayout({
                     dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
                 />
             </head>
-            <body className={`${inter.variable} ${manrope.variable} ${playfair.variable} antialiased`}>
+            <body className={`${inter.variable} ${manrope.variable} ${playfair.variable} ${pressStart.variable} antialiased`}>
                 <NextIntlClientProvider messages={messages}>
-                    <ThemeProvider
-                        attribute="class"
-                        defaultTheme="system"
-                        enableSystem
-                        disableTransitionOnChange
-                    >
-                        <div className="flex min-h-screen flex-col">
-                            <Navbar />
-                            <main className="flex-1">{children}</main>
-                            <Footer />
-                        </div>
-                        <Toaster />
-                    </ThemeProvider>
+                    <QueryProvider>
+                        <ThemeProvider
+                            attribute="class"
+                            defaultTheme="system"
+                            enableSystem
+                            disableTransitionOnChange
+                        >
+                            <div className="flex min-h-screen flex-col">
+                                <Navbar />
+                                <main className="flex-1">{children}</main>
+                                <Footer />
+                            </div>
+                            <Toaster />
+                        </ThemeProvider>
+                    </QueryProvider>
                 </NextIntlClientProvider>
             </body>
         </html>
