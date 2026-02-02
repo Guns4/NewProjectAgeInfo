@@ -1,0 +1,187 @@
+{
+    "Common": {
+        "appName": "AgeInfo",
+        "tagline": "Your Premium Age Calculator",
+        "loading": "Loading...",
+        "loadingCalculation": "Calculating your age...",
+        "error": "Error",
+        "tryAgain": "Try Again",
+        "cancel": "Cancel",
+        "confirm": "Confirm",
+        "save": "Save",
+        "delete": "Delete",
+        "close": "Close"
+    },
+    "Breadcrumbs": {
+        "home": "Home",
+        "calculator": "Calculator",
+        "weton": "Weton Calculator",
+        "about": "About Us",
+        "features": "Features",
+        "pricing": "Pricing",
+        "contact": "Contact",
+        "faq": "FAQ",
+        "blog": "Blog"
+    },
+    "Navigation": {
+        "home": "Home",
+        "calculator": "Calculator",
+        "about": "About",
+        "features": "Features",
+        "contact": "Contact",
+        "pricing": "Pricing",
+        "faq": "FAQ"
+    },
+    "HomePage": {
+        "meta": {
+            "title": "AgeInfo - Calculate Your Age Instantly & Accurately",
+            "description": "Free premium age calculator. Find out your exact age in years, months, days, hours, minutes, and seconds. Beautiful design, lightning fast!"
+        },
+        "hero": {
+            "title": "Calculate Your Age with Style ✨",
+            "subtitle": "Discover your exact age in years, months, days, and even seconds!",
+            "cta": "Let's Calculate!",
+            "trustNote": "Join thousands who trust AgeInfo"
+        },
+        "features": {
+            "title": "Why Choose AgeInfo?",
+            "accurate": {
+                "title": "Precisely Accurate",
+                "description": "Down to the second accuracy with advanced calculations"
+            },
+            "fast": {
+                "title": "Lightning Fast",
+                "description": "Instant results with optimized performance"
+            },
+            "beautiful": {
+                "title": "Beautifully Designed",
+                "description": "Stunning UI that makes calculating age a joy"
+            },
+            "free": {
+                "title": "100% Free",
+                "description": "No hidden costs, no registration required"
+            }
+        }
+    },
+    "Form": {
+        "title": "Enter Your Details",
+        "birthdateLabel": "Your Birth Date",
+        "birthdatePlaceholder": "Select your birthday",
+        "birthdateHint": "Pick the date you were born",
+        "nameLabel": "Your Name (Optional)",
+        "namePlaceholder": "What should we call you?",
+        "nameHint": "We'll personalize your results",
+        "submit": "Calculate My Age!",
+        "submitting": "Calculating...",
+        "reset": "Start Over",
+        "clear": "Clear Form",
+        "validation": {
+            "required": "This field is required",
+            "invalidDate": "Please enter a valid date",
+            "futureDate": "Birth date cannot be in the future",
+            "tooOld": "Please enter a more recent date"
+        }
+    },
+    "Results": {
+        "title": "Here's Your Age Story 📊",
+        "titlePersonalized": "Hey {name}, Here's Your Age Story! 📊",
+        "shareTitle": "Share Your Results",
+        "downloadTitle": "Download Your Age Report",
+        "units": {
+            "years": "Years Old",
+            "months": "Months",
+            "weeks": "Weeks",
+            "days": "Days",
+            "hours": "Hours",
+            "minutes": "Minutes",
+            "seconds": "Seconds"
+        },
+        "labels": {
+            "totalYears": "Total Years",
+            "totalMonths": "Total Months",
+            "totalDays": "Total Days",
+            "nextBirthday": "Next Birthday",
+            "age": "Your Age"
+        },
+        "nextBirthday": {
+            "message": "Your next birthday is in {days} days!",
+            "today": "Happy Birthday! 🎉"
+        }
+    },
+    "Footer": {
+        "copyright": "© {year} AgeInfo. All rights reserved.",
+        "madeWith": "Made with ❤️ for age enthusiasts",
+        "links": {
+            "privacy": "Privacy Policy",
+            "terms": "Terms of Service",
+            "contact": "Contact Us"
+        },
+        "social": {
+            "followUs": "Follow Us"
+        }
+    },
+    "SEO": {
+        "defaultTitle": "AgeInfo - Calculate Your Age Instantly & Accurately",
+        "defaultDescription": "Free premium age calculator. Find out your exact age in years, months, days, hours, minutes, and seconds. Beautiful design, lightning fast, 100% accurate!",
+        "keywords": "age calculator, calculate age, birth date calculator, age in days, age in months, free age calculator"
+    },
+    "Identity": {
+        "title": "Cosmic Identity",
+        "weton": {
+            "title": "Javanese Weton",
+            "pasaranDesc": {
+                "Legi": "Sweet (Manis) - Optimistic, adaptable, and noble character.",
+                "Pahing": "Fiery (Pahit) - Ambitious, passionate, and strong-willed.",
+                "Pon": "Centered - Natural leader, strong, and protective.",
+                "Wage": "Steadfast - Robust, determined, and enduring.",
+                "Kliwon": "Spiritual - Complex, mysterious, and spiritually attuned."
+            }
+        },
+        "zodiac": {
+            "title": "Western Zodiac",
+            "traits": {
+                "Aries": "The Pioneer - Bold, ambitious, and dynamic.",
+                "Taurus": "The Builder - Reliable, patient, and practical.",
+                "Gemini": "The Communicator - Versatile, expressive, and curious.",
+                "Cancer": "The Nurturer - Intuitive, emotional, and protective.",
+                "Leo": "The Ruler - Dramatic, outgoing, and fiery.",
+                "Virgo": "The Analyst - Practical, loyal, and analytical.",
+                "Libra": "The Diplomat - Fair-minded, social, and harmonious.",
+                "Scorpio": "The Alchemist - Passionate, stubborn, and resourceful.",
+                "Sagittarius": "The Explorer - Extroverted, optimistic, and funny.",
+                "Capricorn": "The Achiever - Serious, independent, and disciplined.",
+                "Aquarius": "The Visionary - Deep, imaginative, and original.",
+                "Pisces": "The Dreamer - Affectionate, empathetic, and wise."
+            }
+        },
+        "shio": {
+            "title": "Chinese Zodiac",
+            "traits": {
+                "Rat": "Quick-witted, resourceful, versatile, kind.",
+                "Ox": "Diligent, dependable, strong, determined.",
+                "Tiger": "Brave, confident, competitive.",
+                "Rabbit": "Quiet, elegant, kind, responsible.",
+                "Dragon": "Confident, intelligent, enthusiastic.",
+                "Snake": "Enigmatic, intelligent, wise.",
+                "Horse": "Animated, active, energetic.",
+                "Goat": "Calm, gentle, sympathetic.",
+                "Monkey": "Sharp, smart, curiosity.",
+                "Rooster": "Observant, hardworking, courageous.",
+                "Dog": "Lovely, honest, prudent.",
+                "Pig": "Compassionate, generous, diligent."
+            }
+        }
+    },
+    "Errors": {
+        "404": {
+            "title": "Page Not Found",
+            "message": "Oops! The page you're looking for doesn't exist.",
+            "backHome": "Back to Home"
+        },
+        "500": {
+            "title": "Server Error",
+            "message": "Something went wrong on our end. We're working on it!",
+            "backHome": "Back to Home"
+        }
+    }
+}

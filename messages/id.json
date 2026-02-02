@@ -1,0 +1,192 @@
+{
+    "Common": {
+        "appName": "AgeInfo",
+        "tagline": "Kalkulator Usia Premium Kamu",
+        "loading": "Memuat...",
+        "loadingCalculation": "Lagi hitung umurmu nih...",
+        "error": "Error",
+        "retry": "Coba Lagi",
+        "cancel": "Batal",
+        "save": "Simpan",
+        "edit": "Edit",
+        "delete": "Hapus",
+        "close": "Tutup",
+        "next": "Lanjut",
+        "previous": "Sebelumnya",
+        "continue": "Lanjutkan",
+        "tryAgain": "Coba Lagi",
+        "confirm": "Konfirmasi"
+    },
+    "Breadcrumbs": {
+        "home": "Beranda",
+        "calculator": "Kalkulator",
+        "weton": "Kalkulator Weton",
+        "about": "Tentang Kami",
+        "features": "Fitur",
+        "pricing": "Harga",
+        "contact": "Kontak",
+        "faq": "Pertanyaan Umum",
+        "blog": "Blog"
+    },
+    "Navigation": {
+        "home": "Beranda",
+        "calculator": "Kalkulator",
+        "about": "Tentang",
+        "features": "Fitur",
+        "contact": "Kontak",
+        "pricing": "Harga",
+        "faq": "FAQ"
+    },
+    "HomePage": {
+        "meta": {
+            "title": "AgeInfo - Hitung Umurmu Sekarang Juga!",
+            "description": "Kalkulator usia premium gratis. Temukan umur pastimu dalam tahun, bulan, hari, jam, menit, dan detik. Desain kece, super cepat!"
+        },
+        "hero": {
+            "title": "Yuk, Hitung Umurmu! ✨",
+            "subtitle": "Temukan umur pastimu dalam tahun, bulan, hari, bahkan detik!",
+            "cta": "Ayo Mulai!",
+            "trustNote": "Dipercaya ribuan pengguna"
+        },
+        "features": {
+            "title": "Kenapa Pilih AgeInfo?",
+            "accurate": {
+                "title": "Akurat Banget",
+                "description": "Presisi sampai ke detik dengan perhitungan canggih"
+            },
+            "fast": {
+                "title": "Secepat Kilat",
+                "description": "Hasil instan dengan performa optimal"
+            },
+            "beautiful": {
+                "title": "Desain Kece",
+                "description": "Tampilan memukau yang bikin hitung umur jadi menyenangkan"
+            },
+            "free": {
+                "title": "100% Gratis",
+                "description": "Tanpa biaya tersembunyi, tanpa registrasi"
+            }
+        }
+    },
+    "Form": {
+        "title": "Isi Data Kamu",
+        "birthdateLabel": "Tanggal Lahirmu",
+        "birthdatePlaceholder": "Pilih tanggal lahir kamu",
+        "birthdateHint": "Kapan kamu lahir?",
+        "nameLabel": "Nama Kamu (Opsional)",
+        "namePlaceholder": "Mau dipanggil apa?",
+        "nameHint": "Biar hasilnya lebih personal",
+        "submit": "Hitung Umurku!",
+        "submitting": "Lagi dihitung...",
+        "reset": "Mulai Lagi",
+        "clear": "Hapus Semua",
+        "validation": {
+            "required": "Field ini wajib diisi",
+            "invalidDate": "Tanggal tidak valid",
+            "futureDate": "Tanggal lahir nggak boleh di masa depan",
+            "tooOld": "Masukkan tanggal yang lebih baru"
+        }
+    },
+    "Results": {
+        "title": "Ini Dia Cerita Umurmu 📊",
+        "titlePersonalized": "Hai {name}, Ini Cerita Umurmu! 📊",
+        "shareTitle": "Bagikan Hasilnya",
+        "downloadTitle": "Download Laporan Umurmu",
+        "units": {
+            "years": "Tahun",
+            "months": "Bulan",
+            "weeks": "Minggu",
+            "days": "Hari",
+            "hours": "Jam",
+            "minutes": "Menit",
+            "seconds": "Detik"
+        },
+        "labels": {
+            "totalYears": "Total Tahun",
+            "totalMonths": "Total Bulan",
+            "totalDays": "Total Hari",
+            "nextBirthday": "Ulang Tahun Berikutnya",
+            "age": "Umurmu"
+        },
+        "nextBirthday": {
+            "message": "Ulang tahunmu tinggal {days} hari lagi!",
+            "today": "Selamat Ulang Tahun! 🎉"
+        }
+    },
+    "Footer": {
+        "copyright": "© {year} AgeInfo. Hak cipta dilindungi.",
+        "madeWith": "Dibuat dengan ❤️ untuk pecinta angka",
+        "links": {
+            "privacy": "Kebijakan Privasi",
+            "terms": "Syarat Layanan",
+            "contact": "Hubungi Kami"
+        },
+        "social": {
+            "followUs": "Ikuti Kami"
+        }
+    },
+    "SEO": {
+        "defaultTitle": "AgeInfo - Hitung Umurmu Sekarang Juga!",
+        "defaultDescription": "Kalkulator usia premium gratis. Cari tahu umur pastimu dalam tahun, bulan, hari, jam, menit, dan detik. Desain kece, super cepat, 100% akurat!",
+        "keywords": "kalkulator umur, hitung umur, kalkulator tanggal lahir, umur dalam hari, umur dalam bulan, kalkulator usia gratis"
+    },
+    "Identity": {
+        "title": "Identitas Kosmik",
+        "weton": {
+            "title": "Weton Jawa",
+            "pasaranDesc": {
+                "Legi": "Manis (Sweet) - Optimis, luwes, dan berkarakter mulia.",
+                "Pahing": "Pahit (Fiery) - Ambisius, penuh gairah, dan berkemauan keras.",
+                "Pon": "Tengah - Pemimpin alami, kuat, dan protektif.",
+                "Wage": "Tegas - Tangguh, tekun, dan tahan banting.",
+                "Kliwon": "Spiritual - Kompleks, misterius, dan peka batin."
+            }
+        },
+        "zodiac": {
+            "title": "Zodiak Barat",
+            "traits": {
+                "Aries": "Sang Perintis - Berani, ambisius, dan dinamis.",
+                "Taurus": "Sang Pembangun - Dapat diandalkan, sabar, dan praktis.",
+                "Gemini": "Sang Komunikator - Serba bisa, ekspresif, dan ingin tahu.",
+                "Cancer": "Sang Pengasuh - Intuitif, emosional, dan protektif.",
+                "Leo": "Sang Penguasa - Dramatis, ramah, dan berapi-api.",
+                "Virgo": "Sang Analis - Praktis, setia, dan analitis.",
+                "Libra": "Sang Diplomat - Adil, sosial, dan harmonis.",
+                "Scorpio": "Sang Alkemis - Penuh gairah, keras kepala, dan banyak akal.",
+                "Sagittarius": "Sang Penjelajah - Ekstrovert, optimis, dan lucu.",
+                "Capricorn": "Sang Pencapai - Serius, mandiri, dan disiplin.",
+                "Aquarius": "Sang Visioner - Dalam, imajinatif, dan orisinal.",
+                "Pisces": "Sang Pemimpi - Penyayang, empatik, dan bijaksana."
+            }
+        },
+        "shio": {
+            "title": "Shio Cina",
+            "traits": {
+                "Rat": "Tikus - Cerdas, banyak akal, serba bisa.",
+                "Ox": "Kerbau - Rajin, dapat diandalkan, kuat, tekun.",
+                "Tiger": "Macan - Berani, percaya diri, kompetitif.",
+                "Rabbit": "Kelinci - Tenang, elegan, baik hati, bertanggung jawab.",
+                "Dragon": "Naga - Percaya diri, cerdas, antusias.",
+                "Snake": "Ular - Enigmatik, cerdas, bijaksana.",
+                "Horse": "Kuda - Animasi, aktif, energik.",
+                "Goat": "Kambing - Tenang, lembut, simpatik.",
+                "Monkey": "Monyet - Tajam, cerdas, rasa ingin tahu tinggi.",
+                "Rooster": "Ayam - Pengamat, pekerja keras, berani.",
+                "Dog": "Anjing - Setia, jujur, bijaksana.",
+                "Pig": "Babi - Penyayang, murah hati, rajin."
+            }
+        }
+    },
+    "Errors": {
+        "404": {
+            "title": "Halaman Tidak Ditemukan",
+            "message": "Yah! Halaman yang kamu cari nggak ada.",
+            "backHome": "Kembali ke Beranda"
+        },
+        "500": {
+            "title": "Error Server",
+            "message": "Ada yang salah di sistem kami. Lagi kami perbaiki!",
+            "backHome": "Kembali ke Beranda"
+        }
+    }
+}

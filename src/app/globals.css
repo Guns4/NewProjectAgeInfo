@@ -1,0 +1,316 @@
+@import 'tailwindcss';
+
+@plugin 'tailwindcss-animate';
+
+@theme {
+  /* Colors - Semantic Linkage */
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+
+  /* Extended Unicorn Palette */
+  --color-indigo-50: hsl(var(--indigo-50));
+  --color-indigo-100: hsl(var(--indigo-100));
+  --color-indigo-200: hsl(var(--indigo-200));
+  --color-indigo-300: hsl(var(--indigo-300));
+  --color-indigo-400: hsl(var(--indigo-400));
+  --color-indigo-500: hsl(var(--indigo-500));
+  --color-indigo-600: hsl(var(--indigo-600));
+  --color-indigo-700: hsl(var(--indigo-700));
+  --color-indigo-800: hsl(var(--indigo-800));
+  --color-indigo-900: hsl(var(--indigo-900));
+  --color-indigo-950: hsl(var(--indigo-950));
+
+  --color-purple-50: hsl(var(--purple-50));
+  --color-purple-100: hsl(var(--purple-100));
+  --color-purple-200: hsl(var(--purple-200));
+  --color-purple-300: hsl(var(--purple-300));
+  --color-purple-400: hsl(var(--purple-400));
+  --color-purple-500: hsl(var(--purple-500));
+  --color-purple-600: hsl(var(--purple-600));
+  --color-purple-700: hsl(var(--purple-700));
+  --color-purple-800: hsl(var(--purple-800));
+  --color-purple-900: hsl(var(--purple-900));
+  --color-purple-950: hsl(var(--purple-950));
+
+  /* Fonts */
+  --font-sans: var(--font-inter);
+  --font-heading: var(--font-manrope);
+
+  /* Radius */
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-2xl: 1rem;
+  --radius-3xl: 1.5rem;
+
+  /* Modern Layered Shadows (Soft Depth) */
+  --shadow-soft-sm:
+    0 2px 4px -1px rgba(0, 0, 0, 0.06),
+    0 4px 6px -1px rgba(0, 0, 0, 0.04);
+
+  --shadow-soft-md:
+    0 4px 6px -1px rgba(0, 0, 0, 0.05),
+    0 10px 15px -3px rgba(0, 0, 0, 0.05);
+
+  --shadow-soft-lg:
+    0 10px 15px -3px rgba(0, 0, 0, 0.04),
+    0 20px 25px -5px rgba(0, 0, 0, 0.05),
+    0 0 10px rgba(0, 0, 0, 0.02);
+
+  /* Animation & Interaction Standard */
+  --duration-fast: 150ms;
+  --duration-normal: 300ms;
+  --duration-slow: 500ms;
+
+  --ease-default: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 
+  Unicorn Startup Palette
+  Primary: Deep Indigo (#4F46E5)
+  Secondary: Electric Purple (#7C3AED)
+  Surface: Slate/Zinc
+  WCAG AAA Compliant
+*/
+
+:root {
+  /* INDIGO SCALE (Tailwind Default Indigo) */
+  --indigo-50: 226 100% 97%;
+  --indigo-100: 226 100% 94%;
+  --indigo-200: 228 96% 89%;
+  --indigo-300: 225 87% 81%;
+  --indigo-400: 228 81% 70%;
+  --indigo-500: 230 78% 60%;
+  /* #545BE8 */
+  --indigo-600: 233 77% 59%;
+  /* #4F46E5 BASE */
+  --glow-color: 263.4 70% 50.4%;
+  --indigo-700: 234 72% 51%;
+  --indigo-800: 234 65% 42%;
+  --indigo-900: 234 57% 35%;
+  --indigo-950: 235 55% 23%;
+
+  /* PURPLE SCALE (Tailwind Default Violet) */
+  --purple-50: 255 100% 97%;
+  --purple-100: 255 93% 94%;
+  --purple-200: 257 91% 88%;
+  --purple-300: 256 87% 82%;
+  --purple-400: 257 82% 72%;
+  --purple-500: 258 78% 64%;
+  --purple-600: 262 80% 58%;
+  /* #7C3AED BASE */
+  --purple-700: 263 72% 49%;
+  --purple-800: 263 65% 41%;
+  --purple-900: 263 56% 35%;
+  --purple-950: 264 56% 22%;
+
+  /* BACKGROUNDS - Slate 50 for warmth */
+  --background: 210 40% 98%;
+  --foreground: 222 47% 11%;
+
+  /* SURFACES */
+  --card: 0 0% 100%;
+  --card-foreground: 222 47% 11%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 222 47% 11%;
+
+  /* BRAND MAPPING */
+  --primary: var(--indigo-600);
+  --primary-foreground: 0 0% 100%;
+
+  --secondary: var(--purple-600);
+  --secondary-foreground: 0 0% 100%;
+
+  --accent: 348 91% 60%;
+  /* Rose remains for errors/alerts highlights */
+  --accent-foreground: 0 0% 100%;
+
+  --muted: 210 40% 96.1%;
+  --muted-foreground: 215.4 16.3% 46.9%;
+
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 0 0% 100%;
+
+  --border: 214.3 31.8% 91.4%;
+  --input: 214.3 31.8% 91.4%;
+  --ring: var(--indigo-600);
+
+  --radius: 0.5rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* BACKGROUNDS - Slate 950 (#020617) - Dark but accessible */
+    --background: 222 47% 11%;
+    /* Matches slate-950/Soft Navy */
+    --foreground: 210 40% 98%;
+
+    /* SURFACES - Slate 900 */
+    --card: 222 47% 11%;
+    /* using bg color for seamless look or slightly lighter 222 47% 13% */
+    --card-foreground: 210 40% 98%;
+    --popover: 222 47% 11%;
+    --popover-foreground: 210 40% 98%;
+
+    /* BRAND MAPPING */
+    /* Lighten slightly for dark mode visibility if needed, but 600 usually pops well on dark */
+    --primary: var(--indigo-500);
+    /* Lighter #6366f1 for better contrast on dark */
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: var(--purple-500);
+    /* #8b5cf6 */
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 217 33% 17%;
+    --muted-foreground: 215 20% 65%;
+
+    --destructive: 0 62% 30%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217 33% 17%;
+    --input: 217 33% 17%;
+    --ring: var(--indigo-500);
+  }
+}
+
+/* Global Reset & Utilities */
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+
+  /* Global Focus Ring (Replacing Browser Default) */
+  :focus-visible {
+    @apply outline-none ring-2 ring-primary ring-offset-2 ring-offset-background;
+  }
+
+  /* Fluid Typography & Premium Heading Styles */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-heading font-bold tracking-tight text-balance text-foreground;
+  }
+
+  h1 {
+    font-size: clamp(2.5rem, 5vw + 1rem, 4.5rem);
+    /* 40px -> 72px */
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+
+  h2 {
+    font-size: clamp(2rem, 4vw + 1rem, 3.5rem);
+    /* 32px -> 56px */
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+  }
+
+  h3 {
+    font-size: clamp(1.75rem, 3vw + 1rem, 2.75rem);
+    /* 28px -> 44px */
+    line-height: 1.25;
+  }
+
+  h4 {
+    font-size: clamp(1.5rem, 2vw + 1rem, 2.25rem);
+    /* 24px -> 36px */
+    line-height: 1.3;
+  }
+
+  /* Utilities for Text Balance if not native */
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Custom Scrollbar (Premium Thin) */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--indigo-500) / 0.5);
+    /* Primary-500 with transparency */
+    border-radius: 9999px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--indigo-600) / 0.8);
+  }
+
+  /* Custom Selection (Brand Identity) */
+  ::selection {
+    background: hsl(var(--indigo-500) / 0.25);
+    /* Primary-100 equivalent visual */
+    color: hsl(var(--indigo-900));
+  }
+
+  /* Dark mode specific for selection visibility */
+  @media (prefers-color-scheme: dark) {
+    ::selection {
+      background: hsl(var(--indigo-400) / 0.3);
+      color: hsl(var(--indigo-50));
+    }
+  }
+}
+
+@layer utilities {
+  .brand-gradient {
+    @apply bg-gradient-to-r from-indigo-600 to-purple-600 text-white;
+  }
+
+  .glass-gradient {
+    @apply bg-gradient-to-br from-indigo-500/10 to-purple-500/10 backdrop-blur-md border border-white/10;
+  }
+
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400;
+  }
+
+  /* Bevel Highlight (Skeuomorphic Minimalist) */
+  .shadow-bevel {
+    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+  }
+
+  /* Composed Utilities */
+  .card-premium {
+    @apply bg-card text-card-foreground shadow-soft-sm border border-white/5;
+    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+  }
+}

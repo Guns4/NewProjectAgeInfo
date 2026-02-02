@@ -1,0 +1,87 @@
+{
+  "compilerOptions": {
+    /* ============================================ */
+    /* BASE OPTIONS */
+    /* ============================================ */
+    "target": "ES2022",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "jsx": "react-jsx",
+    "module": "esnext",
+    "moduleResolution": "bundler",
+
+    /* ============================================ */
+    /* STRICT TYPE CHECKING - Unicorn Standards */
+    /* ============================================ */
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "forceConsistentCasingInFileNames": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictBindCallApply": true,
+    "strictPropertyInitialization": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+
+    /* ============================================ */
+    /* LINTING */
+    /* ============================================ */
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+
+    /* ============================================ */
+    /* MODULE RESOLUTION */
+    /* ============================================ */
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+
+    /* ============================================ */
+    /* JAVASCRIPT SUPPORT */
+    /* ============================================ */
+    "allowJs": true,
+    "skipLibCheck": true,
+
+    /* ============================================ */
+    /* EMIT */
+    /* ============================================ */
+    "noEmit": true,
+    "incremental": true,
+
+    /* ============================================ */
+    /* NEXT.JS SPECIFIC */
+    /* ============================================ */
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+
+    /* ============================================ */
+    /* PATH ALIASES - Clean imports */
+    /* ============================================ */
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@/components/*": ["./src/components/*"],
+      "@/lib/*": ["./src/lib/*"],
+      "@/app/*": ["./src/app/*"],
+      "@/types/*": ["./src/types/*"]
+    }
+  },
+
+  /* ============================================ */
+  /* INCLUDE & EXCLUDE */
+  /* ============================================ */
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    ".next/dev/types/**/*.ts",
+    "**/*.mts"
+  ],
+  "exclude": ["node_modules", ".next", "out"]
+}
