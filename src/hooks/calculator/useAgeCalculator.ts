@@ -29,6 +29,9 @@ export interface AgeResult {
     years: number;
     months: number;
     days: number;
+    hours: number;
+    minutes: number;
+    seconds: number;
 
     // Total conversions
     totalMonths: number;
@@ -88,26 +91,24 @@ export function calculateAge(birthDate: Date, currentDate: Date = new Date()): A
 
     // Calculate precise age using date-fns
     const years = differenceInYears(currentDate, birthDate);
+    const birthDatePlusYears = addYears(birthDate, years);
 
-    // Calculate months (total months between dates)
+    // Calculate months
+    const months = differenceInMonths(currentDate, birthDatePlusYears);
+    const birthDatePlusMonths = addYears(addYears(birthDate, years), months);
+
+    // Calculate days
+    const days = differenceInDays(currentDate, birthDatePlusMonths);
+
+    // Remaining units (remainders)
+    const hours = differenceInHours(currentDate, birthDate) % 24;
+    const minutes = differenceInMinutes(currentDate, birthDate) % 60;
+    const seconds = differenceInSeconds(currentDate, birthDate) % 60;
+
+    // Calculate all total conversions
     const totalMonths = differenceInMonths(currentDate, birthDate);
-
-    // Calculate remaining months after accounting for full years
-    const months = totalMonths - (years * 12);
-
-    // Calculate total days
-    const totalDays = differenceInDays(currentDate, birthDate);
-
-    // Calculate remaining days after accounting for years and months
-    // Create a date that is birthDate + years + months
-    const birthDatePlusYearsMonths = new Date(birthDate);
-    birthDatePlusYearsMonths.setFullYear(birthDate.getFullYear() + years);
-    birthDatePlusYearsMonths.setMonth(birthDate.getMonth() + months);
-
-    const days = differenceInDays(currentDate, birthDatePlusYearsMonths);
-
-    // Calculate all total conversions using date-fns
     const totalWeeks = differenceInWeeks(currentDate, birthDate);
+    const totalDays = differenceInDays(currentDate, birthDate);
     const totalHours = differenceInHours(currentDate, birthDate);
     const totalMinutes = differenceInMinutes(currentDate, birthDate);
     const totalSeconds = differenceInSeconds(currentDate, birthDate);
@@ -150,6 +151,9 @@ export function calculateAge(birthDate: Date, currentDate: Date = new Date()): A
         years,
         months,
         days,
+        hours,
+        minutes,
+        seconds,
 
         // Total conversions
         totalMonths,

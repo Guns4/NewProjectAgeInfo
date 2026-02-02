@@ -1,5 +1,3 @@
-import { useTranslations } from 'next-intl';
-import Image from 'next/image';
 import { AgeDashboard } from "@/components/features/age-dashboard";
 
 export default function Home() {

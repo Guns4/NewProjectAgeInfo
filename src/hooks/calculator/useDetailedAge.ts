@@ -116,7 +116,7 @@ function formatHumanReadable(age: AgeResult): string {
     }
 
     if (parts.length === 1) {
-        return parts[0];
+        return parts[0] || 'Less than a day old';
     }
 
     return parts.slice(0, -1).join(', ') + ' and ' + parts[parts.length - 1];

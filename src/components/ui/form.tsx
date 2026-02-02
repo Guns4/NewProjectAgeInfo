@@ -149,7 +149,7 @@ import { motion, AnimatePresence } from "framer-motion"
 const FormMessage = React.forwardRef<
     HTMLParagraphElement,
     React.HTMLAttributes<HTMLParagraphElement>
->(({ className, children, ...props }, ref) => {
+>(({ className, children, ...props }: React.HTMLAttributes<HTMLParagraphElement> & { onDrag?: any; onDragStart?: any; onDragEnd?: any; onAnimationStart?: any; onDragOver?: any }, ref) => {
     const { error, formMessageId } = useFormField()
     const body = error ? String(error?.message) : children
 

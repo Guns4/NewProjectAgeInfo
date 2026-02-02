@@ -70,6 +70,8 @@ export function useRealTimeAge(
             const interval = setInterval(calculate, updateInterval);
             return () => clearInterval(interval);
         }
+
+        return undefined;
     }, [birthDate, isClient, enableRealTime, updateInterval]);
 
     return {
@@ -100,9 +102,9 @@ export function useRealTimeAgeSimple(birthDate: Date | null) {
         years: age.years,
         months: age.months,
         days: age.days,
-        hours: age.hours,
-        minutes: age.minutes,
-        seconds: age.seconds,
+        hours: 'hours' in age ? (age as any).hours : 0,
+        minutes: 'minutes' in age ? (age as any).minutes : 0,
+        seconds: 'seconds' in age ? (age as any).seconds : 0,
         isClient,
         error,
     };

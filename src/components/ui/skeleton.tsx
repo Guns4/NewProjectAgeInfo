@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 function Skeleton({
     className,
     ...props
-}: React.HTMLAttributes<HTMLDivElement>) {
+}: Omit<React.HTMLAttributes<HTMLDivElement>, 'onDrag' | 'onDragStart' | 'onDragEnd' | 'onAnimationStart' | 'onDragOver'>) {
     return (
         <motion.div
             className={cn(

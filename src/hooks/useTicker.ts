@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 
 /**
  * useTicker Hook
@@ -9,23 +9,14 @@ import { useState, useEffect, useRef } from 'react';
  */
 export function useTicker() {
     const [now, setNow] = useState(() => new Date());
-    const frameId = useRef<number>(0);
 
     useEffect(() => {
-        const update = () => {
+        const intervalId = setInterval(() => {
             setNow(new Date());
-            frameId.current = requestAnimationFrame(update);
-        };
-
-        // Start the loop
-        frameId.current = requestAnimationFrame(update);
+        }, 1000);
 
         // Cleanup
-        return () => {
-            if (frameId.current) {
-                cancelAnimationFrame(frameId.current);
-            }
-        };
+        return () => clearInterval(intervalId);
     }, []);
 
     return now;

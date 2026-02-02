@@ -3,7 +3,7 @@
 import * as React from "react"
 import { useTranslations } from "next-intl"
 import { FloatingInput, Card, CardHeader, CardTitle, CardContent } from "@/components/ui"
-import { CardPremium } from "@/components/ui/card-premium"
+import { PremiumCard } from "@/components/ui/card-premium"
 import { DurationTimeline } from "@/components/features/calculator/DurationTimeline"
 import { useDateDuration } from "@/hooks/calculator/useDateDuration"
 

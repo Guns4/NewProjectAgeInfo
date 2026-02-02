@@ -59,7 +59,7 @@ export default async function middleware(request: NextRequest) {
                 .map(lang => {
                     const [locale, q = 'q=1'] = lang.trim().split(';');
                     const quality = parseFloat(q.replace('q=', ''));
-                    return { locale: locale.toLowerCase(), quality };
+                    return { locale: locale ? locale.toLowerCase() : '', quality };
                 })
                 .sort((a, b) => b.quality - a.quality);
 

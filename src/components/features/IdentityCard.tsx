@@ -41,7 +41,7 @@ export function IdentityCard({
             viewport={{ once: true }}
             transition={{ delay, type: "spring", stiffness: 300 }}
             className={cn(
-                "relative overflow-hidden rounded-2xl border p-5 transition-all duration-300 hover:shadow-lg",
+                "relative overflow-hidden rounded-2xl border p-6 transition-all duration-300 hover:shadow-lg",
                 "backdrop-blur-sm bg-white/40 dark:bg-black/20",
                 theme.bg,
                 theme.border,

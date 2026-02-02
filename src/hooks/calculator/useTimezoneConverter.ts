@@ -5,12 +5,21 @@
 
 'use client';
 
+import { useState, useEffect } from 'react';
+
 /**
  * Get user's timezone
  * @returns IANA timezone string (e.g., "Asia/Jakarta")
  */
 export function getUserTimezone(): string {
-    return Intl.DateTimeFormat().resolvedOptions().timeZone;
+    if (typeof window === 'undefined' || !window.Intl) {
+        return 'UTC';
+    }
+    try {
+        return Intl.DateTimeFormat().resolvedOptions().timeZone;
+    } catch (e) {
+        return 'UTC';
+    }
 }
 
 /**
@@ -124,23 +133,29 @@ export function isSameDay(date1: Date, date2: Date): boolean {
     );
 }
 
+
 /**
  * React hook for timezone utilities
  */
 export function useTimezoneConverter() {
-    const timezone = getUserTimezone();
-    const offset = getTimezoneOffset();
+    const [clientTimezone, setClientTimezone] = useState<string>('UTC');
+    const [clientOffset, setClientOffset] = useState<number>(0);
+
+    useEffect(() => {
+        setClientTimezone(getUserTimezone());
+        setClientOffset(getTimezoneOffset());
+    }, []);
 
     return {
-        timezone,
-        offset,
-        offsetHours: Math.floor(Math.abs(offset) / 60),
-        offsetMinutes: Math.abs(offset) % 60,
-        isUTC: offset === 0,
+        timezone: clientTimezone,
+        offset: clientOffset,
+        offsetHours: Math.floor(Math.abs(clientOffset) / 60),
+        offsetMinutes: Math.abs(clientOffset) % 60,
+        isUTC: clientOffset === 0,
         toUTC,
         createUTCDate,
         formatWithTimezone: (date: Date, locale?: string) =>
-            formatWithTimezone(date, locale, timezone),
+            formatWithTimezone(date, locale, clientTimezone),
         getStartOfDayUTC,
         getEndOfDayUTC,
         isSameDay,

@@ -238,6 +238,8 @@ export function formatAgeResult(age: AgeResult, locale: 'en' | 'id') {
         minutes: age.minutes,
         seconds: age.seconds,
         totalDays: formatLocaleNumber(age.totalDays, locale),
+        totalHours: formatLocaleNumber(age.totalHours, locale),
+        totalMinutes: formatLocaleNumber(age.totalMinutes, locale),
         totalSeconds: formatLocaleNumber(age.totalSeconds, locale),
     };
 }

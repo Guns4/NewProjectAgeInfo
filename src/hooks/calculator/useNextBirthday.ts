@@ -6,7 +6,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { isLeapDayBirthday, isLeapYear, getNextLeapDayBirthday } from './useLeapYearCheck';
+import { useLocale } from 'next-intl';
+import { isLeapDayBirthday, getNextLeapDayBirthday } from './useLeapYearCheck';
 
 export interface NextBirthdayResult {
     nextBirthday: Date;
@@ -33,7 +34,8 @@ export interface NextBirthdayResult {
  */
 export function calculateNextBirthday(
     birthDate: Date,
-    currentDate: Date = new Date()
+    currentDate: Date = new Date(),
+    locale: string = 'en-US'
 ): NextBirthdayResult {
     const currentYear = currentDate.getFullYear();
     const birthMonth = birthDate.getMonth();
@@ -64,7 +66,7 @@ export function calculateNextBirthday(
     const daysUntil = Math.floor(hoursUntil / 24);
 
     // Day of week
-    const dayOfWeek = nextBirthday.toLocaleDateString('en-US', { weekday: 'long' });
+    const dayOfWeek = nextBirthday.toLocaleDateString(locale, { weekday: 'long' });
 
     // Checks
     const isBirthdayToday = daysUntil === 0;
@@ -75,7 +77,7 @@ export function calculateNextBirthday(
     const formatted = {
         countdown: formatCountdown(daysUntil, hoursUntil, minutesUntil),
         countdownDetailed: formatCountdownDetailed(daysUntil, hoursUntil % 24, minutesUntil % 60, secondsUntil % 60),
-        date: nextBirthday.toLocaleDateString('en-US', {
+        date: nextBirthday.toLocaleDateString(locale, {
             year: 'numeric',
             month: 'long',
             day: 'numeric'
@@ -125,7 +127,7 @@ function formatCountdownDetailed(days: number, hours: number, minutes: number, s
     }
 
     if (parts.length === 0) return 'Now!';
-    if (parts.length === 1) return parts[0];
+    if (parts.length === 1) return parts[0] || 'Now!';
 
     return parts.join(', ');
 }
@@ -134,6 +136,7 @@ function formatCountdownDetailed(days: number, hours: number, minutes: number, s
  * React hook for next birthday
  */
 export function useNextBirthday(birthDate: Date | null) {
+    const locale = useLocale();
     const [nextBirthday, setNextBirthday] = useState<NextBirthdayResult | null>(null);
     const [error, setError] = useState<string | null>(null);
 
@@ -145,7 +148,7 @@ export function useNextBirthday(birthDate: Date | null) {
         }
 
         try {
-            const result = calculateNextBirthday(birthDate);
+            const result = calculateNextBirthday(birthDate, new Date(), locale);
             setNextBirthday(result);
             setError(null);
         } catch (err) {
@@ -161,6 +164,7 @@ export function useNextBirthday(birthDate: Date | null) {
  * Real-time next birthday countdown
  */
 export function useNextBirthdayCountdown(birthDate: Date | null) {
+    const locale = useLocale();
     const [countdown, setCountdown] = useState<NextBirthdayResult | null>(null);
     const [isClient, setIsClient] = useState(false);
 
@@ -173,7 +177,7 @@ export function useNextBirthdayCountdown(birthDate: Date | null) {
 
         const update = () => {
             try {
-                setCountdown(calculateNextBirthday(birthDate));
+                setCountdown(calculateNextBirthday(birthDate, new Date(), locale));
             } catch (err) {
                 console.error('Countdown calculation error:', err);
             }

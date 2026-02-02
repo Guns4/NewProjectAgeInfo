@@ -27,7 +27,7 @@ export function parseAcceptLanguage(acceptLanguageHeader: string | null): string
             const [locale, q = 'q=1'] = lang.trim().split(';');
             const quality = parseFloat(q.replace('q=', ''));
             return {
-                locale: locale.toLowerCase(),
+                locale: locale ? locale.toLowerCase() : '',
                 quality: isNaN(quality) ? 1 : quality
             };
         })
@@ -38,8 +38,8 @@ export function parseAcceptLanguage(acceptLanguageHeader: string | null): string
         // Extract language code (e.g., 'id-ID' -> 'id')
         const langCode = locale.split('-')[0];
 
-        if (routing.locales.includes(langCode as any)) {
-            return langCode;
+        if (langCode && routing.locales.includes(langCode as any)) {
+            return langCode as string;
         }
     }
 

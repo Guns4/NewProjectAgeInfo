@@ -4,7 +4,7 @@ import * as React from "react"
 import { motion, useMotionTemplate, useMotionValue } from "framer-motion"
 import { cn } from "@/lib/utils"
 
-export interface PremiumCardProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface PremiumCardProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onDrag' | 'onDragStart' | 'onDragEnd' | 'onAnimationStart' | 'onDragOver'> {
     children: React.ReactNode
     glowColor?: string
 }

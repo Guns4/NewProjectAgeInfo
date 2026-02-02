@@ -18,7 +18,7 @@ const DialogClose = DialogPrimitive.Close
 const DialogOverlay = React.forwardRef<
     React.ElementRef<typeof DialogPrimitive.Overlay>,
     React.ComponentPropsWithoutRef<typeof DialogPrimitive.Overlay>
->(({ className, ...props }, ref) => (
+>(({ className, ...props }: React.ComponentPropsWithoutRef<typeof DialogPrimitive.Overlay> & { onDrag?: any; onDragStart?: any; onDragEnd?: any; onAnimationStart?: any; onDragOver?: any }, ref) => (
     <DialogPrimitive.Overlay
         asChild
     >
