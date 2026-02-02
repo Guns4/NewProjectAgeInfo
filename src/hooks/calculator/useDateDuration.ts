@@ -3,19 +3,18 @@ import {
     differenceInYears,
     differenceInMonths,
     differenceInDays,
-    differenceInBusinessDays,
     addYears,
     addMonths,
     isValid,
     parseISO
 } from 'date-fns';
+import { calculateWorkingDays, type WorkingDaysResult } from '@/lib/productivityLogic';
 
-export interface DateDurationResult {
+export interface DateDurationResult extends WorkingDaysResult {
     years: number;
     months: number;
     days: number;
-    totalDays: number;
-    workingDays: number;
+    // Overriding/Creating union with WorkingDaysResult
     isValid: boolean;
 }
 
@@ -26,6 +25,9 @@ export function useDateDuration(startDateStr: string, endDateStr: string): DateD
         days: 0,
         totalDays: 0,
         workingDays: 0,
+        holidaysCount: 0,
+        weekendsCount: 0,
+        holidayDetails: [],
         isValid: false,
     });
 
@@ -39,33 +41,25 @@ export function useDateDuration(startDateStr: string, endDateStr: string): DateD
         const end = parseISO(endDateStr);
 
         if (!isValid(start) || !isValid(end) || start > end) {
-            // Handle invalid or negative range by just resetting or marking invalid
-            // For this requirement, let's just mark invalid if start > end
             setResult(prev => ({ ...prev, isValid: false }));
             return;
         }
 
-        // granular calculation
+        // Granular Duration (Years, Months, Days)
         const years = differenceInYears(end, start);
         const dateAfterYears = addYears(start, years);
-
         const months = differenceInMonths(end, dateAfterYears);
         const dateAfterMonths = addMonths(dateAfterYears, months);
-
         const days = differenceInDays(end, dateAfterMonths);
 
-        // totals
-        const totalDays = differenceInDays(end, start);
-        const workingDays = differenceInBusinessDays(end, start); // start is excluded, end is included? date-fns behavior differs, usually checks full days. 
-        // differenceInBusinessDays: "The number of business days between the given dates, excluding weekends."
-        // It usually excludes the start date and includes the end date or similar. Let's trust date-fns for now.
+        // Working Days & Holidays Logic
+        const productivityStats = calculateWorkingDays(start, end);
 
         setResult({
             years,
             months,
             days,
-            totalDays,
-            workingDays,
+            ...productivityStats,
             isValid: true,
         });
 

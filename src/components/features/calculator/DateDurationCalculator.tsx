@@ -1,7 +1,6 @@
 "use client"
 
 import * as React from "react"
-import { useTranslations } from "next-intl"
 import { FloatingInput, Card, CardHeader, CardTitle, CardContent } from "@/components/ui"
 import { PremiumCard } from "@/components/ui/card-premium"
 import { DurationTimeline } from "@/components/features/calculator/DurationTimeline"
@@ -17,7 +16,7 @@ export function DateDurationCalculator() {
     const workRatio = result.totalDays > 0 ? (result.workingDays / result.totalDays) * 100 : 0
 
     return (
-        <CardPremium className="p-1">
+        <PremiumCard className="p-1">
             <Card className="border-none shadow-none">
                 <CardHeader>
                     <CardTitle className="text-xl">Calculate Period</CardTitle>
@@ -61,8 +60,12 @@ export function DateDurationCalculator() {
                                     <span className="text-lg font-bold">{result.totalDays}</span>
                                 </div>
                                 <div className="flex items-center justify-between">
-                                    <span className="text-sm font-medium text-muted-foreground">Working Days (Mon-Fri)</span>
+                                    <span className="text-sm font-medium text-muted-foreground">Working Days (Excl. Holidays)</span>
                                     <span className="text-lg font-bold text-emerald-500">{result.workingDays}</span>
+                                </div>
+                                <div className="flex items-center justify-between">
+                                    <span className="text-sm font-medium text-muted-foreground">Public Holidays</span>
+                                    <span className="text-lg font-bold text-orange-500">{result.holidaysCount}</span>
                                 </div>
 
                                 <div className="pt-2">
@@ -83,6 +86,6 @@ export function DateDurationCalculator() {
                     )}
                 </CardContent>
             </Card>
-        </CardPremium>
+        </PremiumCard>
     )
 }

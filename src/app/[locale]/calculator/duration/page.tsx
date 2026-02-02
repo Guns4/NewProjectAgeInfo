@@ -1,4 +1,5 @@
 import { DateDurationCalculator } from "@/components/features/calculator/DateDurationCalculator"
+import { RetirementCountdown } from "@/components/features/calculator/RetirementCountdown"
 
 export const metadata = {
     title: 'Date Duration Calculator - AgeInfo',
@@ -18,6 +19,10 @@ export default function DateDurationPage() {
             </div>
 
             <DateDurationCalculator />
+
+            <div className="pt-8 border-t border-border/50">
+                <RetirementCountdown />
+            </div>
         </div>
     )
 }
