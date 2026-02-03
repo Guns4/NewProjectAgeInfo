@@ -11,12 +11,18 @@ export function useTicker() {
     const [now, setNow] = useState(() => new Date());
 
     useEffect(() => {
-        const intervalId = setInterval(() => {
+        let frameId: number;
+
+        const update = () => {
             setNow(new Date());
-        }, 1000);
+            frameId = requestAnimationFrame(update);
+        };
+
+        // Start the loop
+        frameId = requestAnimationFrame(update);
 
         // Cleanup
-        return () => clearInterval(intervalId);
+        return () => cancelAnimationFrame(frameId);
     }, []);
 
     return now;

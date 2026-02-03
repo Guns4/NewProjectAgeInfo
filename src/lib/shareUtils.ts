@@ -6,6 +6,8 @@
 export interface ShareableContent {
     text: string;
     url: string;
+    files?: File[];
+    title?: string;
 }
 
 /**
@@ -43,12 +45,29 @@ export function generateBioStatShareText(label: string, formatted: string): stri
 export async function shareContent(content: ShareableContent): Promise<boolean> {
     const fullText = `${content.text}\n\nCek punyamu di ${content.url}`;
 
+    // Support title if provided, else reasonable default
+    const title = content.title || 'AgeInfo.Online';
+
     // Try Web Share API first (mobile-friendly)
     if (navigator.share) {
         try {
+            // Check if we can share files
+            if (content.files && content.files.length > 0) {
+                if (navigator.canShare && navigator.canShare({ files: content.files })) {
+                    await navigator.share({
+                        text: fullText,
+                        title: title,
+                        files: content.files
+                    });
+                    return true;
+                }
+            }
+
+            // Standard share without files (or if file share unsupported)
             await navigator.share({
                 text: fullText,
                 url: content.url,
+                title: title,
             });
             return true;
         } catch (error) {

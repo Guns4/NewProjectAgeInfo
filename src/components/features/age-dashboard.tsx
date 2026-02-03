@@ -6,10 +6,16 @@ import { PremiumCard } from "@/components/ui/card-premium";
 import { FloatingInput } from "@/components/ui/input-floating";
 import { BirthdayCountdown } from "@/components/features/birthday-countdown";
 import { SecondsCounter } from "@/components/features/SecondsCounter";
+import { ShareInfographicButton } from "@/components/features/ShareInfographicButton";
 import { useAgeCalculator } from "@/hooks/calculator/useAgeCalculator";
 import { useHistoricalData } from "@/hooks/useHistoricalData";
 import { cn, formatUnit } from "@/lib/utils";
 import { IdentitySection } from "@/components/features/IdentitySection";
+import { UpcomingEvents } from "@/components/features/UpcomingEvents";
+import { AffiliateSection } from "@/components/features/AffiliateSection";
+import { CalendarExport } from "@/components/features/CalendarExport";
+import { WorkLifeInsight } from "@/components/features/WorkLifeInsight";
+import { LifeWorkSlider } from "@/components/features/LifeWorkSlider";
 
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { useLocale } from "next-intl";
@@ -472,11 +478,43 @@ export function AgeDashboard({ className }: AgeDashboardProps) {
                         initial="hidden"
                         animate="visible"
                     >
+                        {/* Top Identity Card */}
                         <IdentitySection date={birthDate} age={age || undefined} onReset={handleReset} className="mt-8" />
 
-                        {/* Fase 301-325: Micro-Milestones */}
+                        {/* Fase 481-500: Events & Affiliate */}
+                        {age && birthDate && (
+                            <div className="mt-8 space-y-8">
+                                {/* Events Row */}
+                                <div>
+                                    <UpcomingEvents />
+                                </div>
+
+                                {/* Affiliate Row (Only shows if < 30 days to birthday) */}
+                                {age.nextBirthday && (
+                                    <AffiliateSection
+                                        age={age.years}
+                                        daysUntilBirthday={age.countdownDays}
+                                    />
+                                )}
+                            </div>
+                        )}
+
+                        {/* Fase 461-480: Infographic Generator CTA */}
+                        {age && (
+                            <div className="flex justify-center mt-8">
+                                <ShareInfographicButton birthDate={birthDate} age={age} />
+                            </div>
+                        )}
+
+                        {/* Fase 301-325: Micro-Milestones & Calendar Export */}
                         {upcomingMilestones.length > 0 && (
-                            <MilestoneCards milestones={upcomingMilestones} className="mt-8" />
+                            <div className="mt-8 space-y-4">
+                                <div className="flex justify-between items-center px-1">
+                                    <h3 className="text-xl font-bold text-foreground">Next Milestones</h3>
+                                    <CalendarExport age={age} birthDate={birthDate} />
+                                </div>
+                                <MilestoneCards milestones={upcomingMilestones} />
+                            </div>
                         )}
 
                         {/* Year Progress */}
@@ -490,11 +528,14 @@ export function AgeDashboard({ className }: AgeDashboardProps) {
 
                         {/* Fase 395.1: Life Progress Meter */}
                         {age && (
-                            <LifeProgress
-                                age={age}
-                                yearProgress={yearProgress.percentage}
-                                className="mt-8"
-                            />
+                            <div className="mt-8 space-y-8">
+                                <LifeProgress
+                                    age={age}
+                                    yearProgress={yearProgress.percentage}
+                                />
+                                {birthDate && <WorkLifeInsight birthDate={birthDate} />}
+                                <LifeWorkSlider currentAge={age.years} />
+                            </div>
                         )}
 
                         {/* Fase 395.2: Time Relativity */}

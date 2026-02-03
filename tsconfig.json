@@ -4,11 +4,14 @@
     /* BASE OPTIONS */
     /* ============================================ */
     "target": "ES2022",
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "jsx": "react-jsx",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "jsx": "preserve",
     "module": "esnext",
     "moduleResolution": "bundler",
-
     /* ============================================ */
     /* STRICT TYPE CHECKING - Unicorn Standards */
     /* ============================================ */
@@ -23,13 +26,11 @@
     "strictPropertyInitialization": true,
     "noImplicitThis": true,
     "alwaysStrict": true,
-
     /* ============================================ */
     /* LINTING */
     /* ============================================ */
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-
     /* ============================================ */
     /* MODULE RESOLUTION */
     /* ============================================ */
@@ -37,19 +38,16 @@
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
-
     /* ============================================ */
     /* JAVASCRIPT SUPPORT */
     /* ============================================ */
     "allowJs": true,
     "skipLibCheck": true,
-
     /* ============================================ */
     /* EMIT */
     /* ============================================ */
     "noEmit": true,
     "incremental": true,
-
     /* ============================================ */
     /* NEXT.JS SPECIFIC */
     /* ============================================ */
@@ -58,20 +56,28 @@
         "name": "next"
       }
     ],
-
     /* ============================================ */
     /* PATH ALIASES - Clean imports */
     /* ============================================ */
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"],
-      "@/components/*": ["./src/components/*"],
-      "@/lib/*": ["./src/lib/*"],
-      "@/app/*": ["./src/app/*"],
-      "@/types/*": ["./src/types/*"]
+      "@/*": [
+        "./src/*"
+      ],
+      "@/components/*": [
+        "./src/components/*"
+      ],
+      "@/lib/*": [
+        "./src/lib/*"
+      ],
+      "@/app/*": [
+        "./src/app/*"
+      ],
+      "@/types/*": [
+        "./src/types/*"
+      ]
     }
   },
-
   /* ============================================ */
   /* INCLUDE & EXCLUDE */
   /* ============================================ */
@@ -83,5 +89,9 @@
     ".next/dev/types/**/*.ts",
     "**/*.mts"
   ],
-  "exclude": ["node_modules", ".next", "out"]
+  "exclude": [
+    "node_modules",
+    ".next",
+    "out"
+  ]
 }

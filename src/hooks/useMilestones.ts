@@ -51,6 +51,7 @@ export function useMilestones(birthDate: Date | null, age: any): MilestonesResul
         // Define milestones
         const MILESTONES = [
             // Days milestones
+            { type: 'days' as const, target: 1000, label: '1000 Hari (Nyewu)', description: 'Momen emas 1000 hari pertama' },
             { type: 'days' as const, target: 10000, label: '10,000 Hari', description: 'Hampir 27.4 tahun perjalanan hidup' },
             { type: 'days' as const, target: 20000, label: '20,000 Hari', description: 'Lebih dari 54 tahun pengalaman' },
             { type: 'days' as const, target: 30000, label: '30,000 Hari', description: 'Hampir 82 tahun kebijaksanaan' },
