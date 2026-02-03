@@ -65,7 +65,6 @@ import { MilestoneCards } from "@/components/features/MilestoneCards";
 import { YearProgress } from "@/components/features/YearProgress";
 import { calculateBiologicalStats } from "@/lib/biologicalStats";
 import { BiologicalStats } from "@/components/features/BiologicalStats";
-import { getTimeCapsule, type TimeCapsule } from "@/services/historicalService";
 import { getAgeComparisons, getCosmicContext } from "@/services/comparisonService";
 
 // Lazy load heavy components
