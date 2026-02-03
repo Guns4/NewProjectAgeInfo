@@ -73,7 +73,7 @@ export function DetailedAgeExample() {
 // Example 3: Real-Time Age Counter (Hydration Safe!)
 export function RealTimeAgeExample() {
     const birthDate = new Date('2000-01-01');
-    const { age, isClient, error } = useRealTimeAge(birthDate);
+    const { age, isClient } = useRealTimeAge(birthDate);
 
     // Server and initial client render: show skeleton
     if (!isClient || !age) {

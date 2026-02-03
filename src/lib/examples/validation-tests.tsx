@@ -96,8 +96,8 @@ export function ValidationTestSuite() {
                         <div
                             key={index}
                             className={`p-4 rounded-lg border-2 ${passed
-                                    ? 'bg-green-50 border-green-300'
-                                    : 'bg-red-50 border-red-300'
+                                ? 'bg-green-50 border-green-300'
+                                : 'bg-red-50 border-red-300'
                                 }`}
                         >
                             <div className="flex items-start justify-between">
@@ -157,11 +157,11 @@ export function ValidationTestSuite() {
                 <h3 className="font-semibold mb-2">Test Summary</h3>
                 <p className="text-sm">
                     Total Tests: {testCases.length} |{' '}
-                    Passed: {testCases.filter((tc, i) => {
+                    Passed: {testCases.filter((tc) => {
                         const validation = validateBirthDate(tc.date);
                         return validation.isValid === tc.shouldPass;
                     }).length} |{' '}
-                    Failed: {testCases.filter((tc, i) => {
+                    Failed: {testCases.filter((tc) => {
                         const validation = validateBirthDate(tc.date);
                         return validation.isValid !== tc.shouldPass;
                     }).length}

@@ -1,6 +1,5 @@
 "use client";
 
-import * as React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { formatLocaleDate, cn } from "@/lib/utils";
 import { HistoryItem } from "@/hooks/useSearchHistory";

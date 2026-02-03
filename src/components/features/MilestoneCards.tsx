@@ -133,31 +133,50 @@ export function MilestoneCards({ milestones, className }: MilestoneCardsProps) {
                                 {milestone.percentage.toFixed(1)}% tercapai
                             </p>
 
-                            {/* Share Button */}
-                            <button
-                                onClick={() => handleShare(milestone)}
-                                disabled={shareLoading === `${milestone.type}-${milestone.target}`}
-                                className={`mt-4 w-full flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-300 ${shareSuccess === `${milestone.type}-${milestone.target}`
-                                    ? 'bg-green-500/20 text-green-700 dark:text-green-300 border border-green-500/30'
-                                    : `${colors.bg} ${colors.border} ${colors.text} border hover:shadow-md`
-                                    }`}
-                            >
-                                {shareLoading === `${milestone.type}-${milestone.target}` ? (
-                                    <>
-                                        <div className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
-                                        Berbagi...
-                                    </>
-                                ) : shareSuccess === `${milestone.type}-${milestone.target}` ? (
-                                    <>
-                                        ✓ Tersalin!
-                                    </>
-                                ) : (
-                                    <>
-                                        <Share2 className="w-4 h-4" />
-                                        Bagikan Fakta Unik
-                                    </>
-                                )}
-                            </button>
+                            {/* Action Buttons */}
+                            <div className="mt-4 flex gap-2">
+                                <button
+                                    onClick={() => handleShare(milestone)}
+                                    disabled={shareLoading === `${milestone.type}-${milestone.target}`}
+                                    className={`flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-lg text-sm font-semibold transition-all duration-300 ${shareSuccess === `${milestone.type}-${milestone.target}`
+                                        ? 'bg-green-500/20 text-green-700 dark:text-green-300 border border-green-500/30'
+                                        : `${colors.bg} ${colors.border} ${colors.text} border hover:shadow-md`
+                                        }`}
+                                >
+                                    {shareLoading === `${milestone.type}-${milestone.target}` ? (
+                                        <>
+                                            <div className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
+                                            Sharing...
+                                        </>
+                                    ) : shareSuccess === `${milestone.type}-${milestone.target}` ? (
+                                        <>
+                                            ✓ Copied!
+                                        </>
+                                    ) : (
+                                        <>
+                                            <Share2 className="w-4 h-4" />
+                                            Share
+                                        </>
+                                    )}
+                                </button>
+
+                                <button
+                                    onClick={() => {
+                                        import('@/lib/icsGenerator').then(({ generateICSEvent, downloadICSFile, mapMilestoneToEvent }) => {
+                                            const event = mapMilestoneToEvent(milestone);
+                                            if (event) {
+                                                const ics = generateICSEvent(event);
+                                                downloadICSFile(ics, `milestone-${milestone.target}.ics`);
+                                                import('sonner').then(mod => mod.toast.success('Event saved!'));
+                                            }
+                                        });
+                                    }}
+                                    className={`px-3 py-2 rounded-lg border bg-white/50 dark:bg-black/20 hover:bg-white/80 dark:hover:bg-black/40 transition-colors ${colors.border} ${colors.text}`}
+                                    title="Add to Calendar"
+                                >
+                                    <Calendar className="w-4 h-4" />
+                                </button>
+                            </div>
 
                             {/* Decorative blob */}
                             <div

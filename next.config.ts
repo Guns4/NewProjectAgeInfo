@@ -1,7 +1,8 @@
 import type { NextConfig } from 'next';
 import createNextIntlPlugin from 'next-intl/plugin';
+import path from 'path';
 
-const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts');
+const withNextIntl = createNextIntlPlugin(path.join(process.cwd(), 'src/i18n/request.ts'));
 
 const nextConfig: NextConfig = {
   // ============================================
@@ -50,7 +51,6 @@ const nextConfig: NextConfig = {
   // EXPERIMENTAL FEATURES (Next.js 16+)
   // ============================================
   experimental: {
-    // Optimize package imports
     optimizePackageImports: ['framer-motion', 'lucide-react', 'date-fns'],
   },
 };

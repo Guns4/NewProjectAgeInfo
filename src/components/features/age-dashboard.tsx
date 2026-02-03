@@ -1,6 +1,6 @@
 "use client";
 
-import * as React from "react";
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { PremiumCard } from "@/components/ui/card-premium";
 import { FloatingInput } from "@/components/ui/input-floating";
@@ -16,6 +16,7 @@ import { AffiliateSection } from "@/components/features/AffiliateSection";
 import { CalendarExport } from "@/components/features/CalendarExport";
 import { WorkLifeInsight } from "@/components/features/WorkLifeInsight";
 import { LifeWorkSlider } from "@/components/features/LifeWorkSlider";
+import { LifeWorkStats } from "@/components/features/LifeWorkStats";
 
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { useLocale } from "next-intl";
@@ -108,20 +109,39 @@ const NostalgiaView = dynamic(
     }
 );
 
+const DownloadMemorialButton = dynamic(
+    () => import("@/components/features/DownloadMemorialButton").then(mod => mod.DownloadMemorialButton),
+    {
+        loading: () => <div className="h-12 w-48 rounded-md bg-muted/20 animate-pulse mx-auto" />,
+        ssr: false
+    }
+);
+
+const YearInReviewSlides = dynamic(
+    () => import("@/components/features/YearInReviewSlides").then(mod => mod.YearInReviewSlides),
+    { ssr: false }
+);
+
+import { YearInReviewTrigger } from "@/components/features/YearInReviewSlides";
+import { GiftRecommendation } from "@/components/features/GiftRecommendation";
+
 export function AgeDashboard({ className }: AgeDashboardProps) {
     const router = useRouter();
     const pathname = usePathname();
     const searchParams = useSearchParams();
     const locale = useLocale();
+
+    // Year In Review State
+    const [isYearInReviewOpen, setIsYearInReviewOpen] = useState(false);
     const { history, addToHistory, isLoaded } = useSearchHistory();
 
-    const [dateString, setDateString] = React.useState<string>("");
-    const [birthDate, setBirthDate] = React.useState<Date | null>(null);
+    const [dateString, setDateString] = useState<string>("");
+    const [birthDate, setBirthDate] = useState<Date | null>(null);
     // const [timeCapsule, setTimeCapsule] = React.useState<TimeCapsule | null>(null); // Replaced by React Query
     const { data: timeCapsule } = useHistoricalData(birthDate?.getFullYear() || null);
 
     // Derived states for Edge Cases
-    const [dashboardMode, setDashboardMode] = React.useState<'standard' | 'future' | 'newborn' | 'birthday'>('standard');
+    const [dashboardMode, setDashboardMode] = useState<'standard' | 'future' | 'newborn' | 'birthday'>('standard');
 
     // ... (helper updateDateSource) ...
     const updateDateSource = (value: string) => {
@@ -153,7 +173,7 @@ export function AgeDashboard({ className }: AgeDashboardProps) {
     };
 
     // Edge Case Logic
-    React.useEffect(() => {
+    useEffect(() => {
         if (!birthDate) {
             setDashboardMode('standard');
             return;
@@ -194,7 +214,7 @@ export function AgeDashboard({ className }: AgeDashboardProps) {
 
 
     // Phase 190.1: Initialize from URL
-    React.useEffect(() => {
+    useEffect(() => {
         const dobParam = searchParams.get('dob');
         if (dobParam && dobParam !== dateString) {
             // Validate basic format YYYY-MM-DD
@@ -214,7 +234,7 @@ export function AgeDashboard({ className }: AgeDashboardProps) {
 
     // Phase 190.4: Save to history when a valid birthDate is set
     // We debounce this slightly to avoid saving rapid changes if any
-    React.useEffect(() => {
+    useEffect(() => {
         if (birthDate && dateString) {
             // Check if valid full date string YYYY-MM-DD
             if (/^\d{4}-\d{2}-\d{2}$/.test(dateString)) {
@@ -533,8 +553,28 @@ export function AgeDashboard({ className }: AgeDashboardProps) {
                                     age={age}
                                     yearProgress={yearProgress.percentage}
                                 />
+
+                                {birthDate && (
+                                    <div className="mt-6">
+                                        <YearInReviewTrigger onClick={() => setIsYearInReviewOpen(true)} />
+                                        <YearInReviewSlides
+                                            isOpen={isYearInReviewOpen}
+                                            onClose={() => setIsYearInReviewOpen(false)}
+                                            birthDate={birthDate}
+                                            workHours={Math.floor((Math.floor((new Date().getTime() - birthDate.getTime()) / (1000 * 60 * 60 * 24)) / 7) * 5 * 8)}
+                                        />
+                                    </div>
+                                )}
+
                                 {birthDate && <WorkLifeInsight birthDate={birthDate} />}
                                 <LifeWorkSlider currentAge={age.years} />
+                                {birthDate && <LifeWorkStats birthDate={birthDate} locale={locale} />}
+
+                                {birthDate && (
+                                    <div className="mt-8">
+                                        <GiftRecommendation age={age.years} />
+                                    </div>
+                                )}
                             </div>
                         )}
 
@@ -582,6 +622,17 @@ export function AgeDashboard({ className }: AgeDashboardProps) {
                                 currentAge={age.years}
                                 className="mt-8"
                             />
+                        )}
+
+                        {/* Fase 495.4: Memorial & Legacy Planning */}
+                        {birthDate && (
+                            <div className="mt-12 flex justify-center pb-8">
+                                <DownloadMemorialButton
+                                    birthDate={birthDate}
+                                    locale={locale}
+                                    name={searchParams.get('name') || undefined}
+                                />
+                            </div>
                         )}
                     </motion.div>
                 )}

@@ -1,10 +1,7 @@
-'use client';
-
-import * as React from 'react';
 import { Calendar as CalendarIcon, Download } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useMilestones } from '@/hooks/useMilestones';
-import { generateICS, downloadICS } from '@/lib/calendarExport';
+import { generateICS, mapMilestoneToEvent, downloadICSFile, IcsEvent } from '@/lib/icsGenerator';
 import { toast } from 'sonner';
 
 interface CalendarExportProps {
@@ -22,8 +19,12 @@ export function CalendarExport({ age, birthDate }: CalendarExportProps) {
         }
 
         try {
-            const icsContent = generateICS(upcomingMilestones);
-            downloadICS(icsContent);
+            const events = upcomingMilestones
+                .map(mapMilestoneToEvent)
+                .filter((e): e is IcsEvent => e !== null);
+
+            const icsContent = generateICS(events);
+            downloadICSFile(icsContent, 'my-life-milestones.ics');
             toast.success('Calendar file downloaded! Import it to your calendar app.');
         } catch (error) {
             console.error(error);

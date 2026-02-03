@@ -3,6 +3,7 @@ import React from "react";
 
 interface SectionWrapperProps extends React.HTMLAttributes<HTMLElement> {
     children: React.ReactNode;
+    className?: string;
 }
 
 export function SectionWrapper({ children, className, ...props }: SectionWrapperProps) {

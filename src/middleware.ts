@@ -40,7 +40,7 @@ export default async function middleware(request: NextRequest) {
         '/robots.txt',
         '/sitemap.xml',
         '/manifest.json',
-    ].some(path => pathname.startsWith(path));
+    ].some((path) => pathname.startsWith(path));
 
     const hasFileExtension = /\.[^/]+$/.test(pathname);
 
@@ -56,7 +56,7 @@ export default async function middleware(request: NextRequest) {
         if (acceptLanguage) {
             const languages = acceptLanguage
                 .split(',')
-                .map(lang => {
+                .map((lang) => {
                     const [locale, q = 'q=1'] = lang.trim().split(';');
                     const quality = parseFloat(q.replace('q=', ''));
                     return { locale: locale ? locale.toLowerCase() : '', quality };
@@ -89,10 +89,7 @@ export default async function middleware(request: NextRequest) {
 
     // Add X-Robots-Tag header for internal/private pages
     if (shouldNoIndex(pathname)) {
-        response.headers.set(
-            'X-Robots-Tag',
-            'noindex, nofollow, noarchive, nosnippet'
-        );
+        response.headers.set('X-Robots-Tag', 'noindex, nofollow, noarchive, nosnippet');
     } else {
         // Allow full crawling for public pages
         response.headers.set(
@@ -115,5 +112,4 @@ export default async function middleware(request: NextRequest) {
 // ✅ Edge Runtime Configuration for maximum performance
 export const config = {
     matcher: ['/((?!api|_next|_vercel|.*\\..*).*)', '/'],
-    runtime: 'experimental-edge', // ✅ Edge Runtime for peak performance
 };

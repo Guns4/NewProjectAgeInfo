@@ -49,11 +49,11 @@ export async function shareContent(content: ShareableContent): Promise<boolean> 
     const title = content.title || 'AgeInfo.Online';
 
     // Try Web Share API first (mobile-friendly)
-    if (navigator.share) {
+    if (typeof navigator !== 'undefined' && 'share' in navigator) {
         try {
             // Check if we can share files
             if (content.files && content.files.length > 0) {
-                if (navigator.canShare && navigator.canShare({ files: content.files })) {
+                if ('canShare' in navigator && (navigator as any).canShare({ files: content.files })) {
                     await navigator.share({
                         text: fullText,
                         title: title,
@@ -93,7 +93,7 @@ export async function shareContent(content: ShareableContent): Promise<boolean> 
  * Check if Web Share API is available
  */
 export function isShareSupported(): boolean {
-    return typeof navigator !== 'undefined' && !!navigator.share;
+    return typeof navigator !== 'undefined' && 'share' in navigator;
 }
 
 /**

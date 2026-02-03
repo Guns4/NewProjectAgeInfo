@@ -29,9 +29,21 @@ export async function GET(request: NextRequest) {
         // Get parameters from query string
         const title = searchParams.get('title') || 'AgeInfo';
         const locale = searchParams.get('locale') || 'en';
+        const type = searchParams.get('type') || 'default'; // 'default', 'blog', 'weton'
+        const category = searchParams.get('category') || '';
+
         const subtitle = locale === 'id'
             ? 'Kalkulator Umur Premium'
             : 'Premium Age Calculator';
+
+        // Template logic
+        const bgGradient = type === 'weton'
+            ? 'linear-gradient(135deg, #1a2a6c 0%, #b21f1f 50%, #fdbb2d 100%)' // Mystic gradient for weton
+            : type === 'blog'
+                ? 'linear-gradient(135deg, #000000 0%, #434343 100%)' // dark sleek for blog
+                : 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'; // default
+
+        const icon = type === 'weton' ? '🔮' : type === 'blog' ? '✍️' : '🎂';
 
         return new ImageResponse(
             (
@@ -43,7 +55,7 @@ export async function GET(request: NextRequest) {
                         flexDirection: 'column',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                        background: bgGradient,
                         fontFamily: 'Inter, sans-serif',
                     }}
                 >
@@ -115,7 +127,7 @@ export async function GET(request: NextRequest) {
                                     fontSize: '48px',
                                 }}
                             >
-                                🎂
+                                {icon}
                             </div>
                             <div
                                 style={{
@@ -125,21 +137,40 @@ export async function GET(request: NextRequest) {
                                     letterSpacing: '-2px',
                                 }}
                             >
-                                AgeInfo
+                                AgeInfo {type !== 'default' && `| ${type.charAt(0).toUpperCase() + type.slice(1)}`}
                             </div>
                         </div>
+
+                        {/* Category Badge */}
+                        {category && (
+                            <div
+                                style={{
+                                    background: 'rgba(255,255,255,0.2)',
+                                    padding: '8px 20px',
+                                    borderRadius: '10px',
+                                    color: 'white',
+                                    fontSize: '24px',
+                                    marginBottom: '20px',
+                                    fontWeight: 'bold',
+                                    textTransform: 'uppercase',
+                                    letterSpacing: '2px',
+                                }}
+                            >
+                                {category}
+                            </div>
+                        )}
 
                         {/* Title */}
                         <div
                             style={{
-                                fontSize: '72px',
+                                fontSize: type === 'blog' ? '80px' : '72px',
                                 fontWeight: 'bold',
                                 color: 'white',
                                 textAlign: 'center',
                                 maxWidth: '1000px',
-                                lineHeight: 1.2,
+                                lineHeight: 1.1,
                                 marginBottom: '20px',
-                                textShadow: '0 4px 12px rgba(0,0,0,0.2)',
+                                textShadow: '0 4px 12px rgba(0,0,0,0.3)',
                             }}
                         >
                             {title}

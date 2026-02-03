@@ -170,7 +170,7 @@ export function getToneProfile(age: number): ToneProfile {
 export function getContextualGreeting(age: number, timeOfDay: 'morning' | 'afternoon' | 'evening' = 'morning'): string {
     const profile = getToneProfile(age);
     const greetings = profile.greetings[timeOfDay];
-    return greetings[Math.floor(Math.random() * greetings.length)] || greetings[0];
+    return greetings[Math.floor(Math.random() * greetings.length)] || greetings[0] || 'Welcome back!';
 }
 
 /**
@@ -200,7 +200,7 @@ export function adaptMessage(template: string, age: number, variables?: Record<s
     // Add random emoji for children and teens
     if (age <= 17 && profile.emoji.length > 0) {
         const randomEmoji = profile.emoji[Math.floor(Math.random() * profile.emoji.length)];
-        if (!message.includes(randomEmoji)) {
+        if (randomEmoji && !message.includes(randomEmoji)) {
             message += ` ${randomEmoji}`;
         }
     }
@@ -213,7 +213,7 @@ export function adaptMessage(template: string, age: number, variables?: Record<s
  */
 export function getTransition(age: number): string {
     const profile = getToneProfile(age);
-    return profile.transitions[Math.floor(Math.random() * profile.transitions.length)] || "Loading...";
+    return profile.transitions[Math.floor(Math.random() * profile.transitions.length)] || 'Loading...';
 }
 
 /**
@@ -229,7 +229,7 @@ export function getStatDescription(age: number, statType: 'heartbeat' | 'breath'
  */
 export function getMilestonePrefix(age: number): string {
     const profile = getToneProfile(age);
-    return profile.milestonePrefix[Math.floor(Math.random() * profile.milestonePrefix.length)] || "";
+    return profile.milestonePrefix[Math.floor(Math.random() * profile.milestonePrefix.length)] || '';
 }
 
 /**
@@ -237,5 +237,5 @@ export function getMilestonePrefix(age: number): string {
  */
 export function getCosmicIntro(age: number): string {
     const profile = getToneProfile(age);
-    return profile.cosmicIntro[Math.floor(Math.random() * profile.cosmicIntro.length)] || "";
+    return profile.cosmicIntro[Math.floor(Math.random() * profile.cosmicIntro.length)] || '';
 }

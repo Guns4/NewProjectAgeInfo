@@ -25,6 +25,7 @@ export interface CosmicContext {
  */
 export function getAgeComparisons(age: number): AgeComparison[] {
     const ageKey = age.toString();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const comparisonsData = (ageComparisons as any)[ageKey] as Omit<AgeComparison, 'age'>[] | undefined;
 
     if (!comparisonsData || comparisonsData.length === 0) {
@@ -32,10 +33,11 @@ export function getAgeComparisons(age: number): AgeComparison[] {
         for (let offset = 1; offset <= 2; offset++) {
             const nearbyAge = age + offset;
             const nearbyKey = nearbyAge.toString();
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             const nearbyData = (ageComparisons as any)[nearbyKey] as Omit<AgeComparison, 'age'>[] | undefined;
 
             if (nearbyData && nearbyData.length > 0) {
-                return nearbyData.map(c => ({ ...c, age: nearbyAge })).slice(0, 3);
+                return nearbyData.map((c) => ({ ...c, age: nearbyAge })).slice(0, 3);
             }
         }
 
@@ -44,7 +46,7 @@ export function getAgeComparisons(age: number): AgeComparison[] {
 
     // Return up to 3 random comparisons with age field added
     const shuffled = [...comparisonsData].sort(() => Math.random() - 0.5);
-    return shuffled.slice(0, 3).map(c => ({ ...c, age }));
+    return shuffled.slice(0, 3).map((c) => ({ ...c, age }));
 }
 
 /**
@@ -63,7 +65,7 @@ export function getCosmicContext(birthDate: Date): CosmicContext {
 
     // Solar system through Milky Way: ~828,000 km/hour
     // Convert to years: 828,000 km/h × 24h × 365.25 days
-    const galaxyDistance = Math.floor(ageInYears * 828000 * 24 * 365.25 / 1000000); // in million km
+    const galaxyDistance = Math.floor((ageInYears * 828000 * 24 * 365.25) / 1000000); // in million km
 
     return {
         earthOrbitDistance,
@@ -93,6 +95,7 @@ export function formatDistance(km: number): string {
  */
 export function hasComparisons(age: number): boolean {
     const ageKey = age.toString();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const data = (ageComparisons as any)[ageKey];
     return data !== undefined && Array.isArray(data) && data.length > 0;
 }

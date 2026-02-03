@@ -39,6 +39,10 @@ export function InfographicGenerator({ birthDate, age, onClose }: InfographicGen
     const [accentColor, setAccentColor] = React.useState<string>(getDefaultAccentColor('minimalist'));
     const [isGenerating, setIsGenerating] = React.useState(false);
 
+    // Share Fallback State
+    const [showShareFallback, setShowShareFallback] = React.useState(false);
+    const [generatedBlob, setGeneratedBlob] = React.useState<Blob | null>(null);
+
 
     // References
     const previewRef = React.useRef<HTMLDivElement>(null);
@@ -106,24 +110,29 @@ export function InfographicGenerator({ birthDate, age, onClose }: InfographicGen
             };
 
             const blob = await generateInfographic(elementToCapture, config);
+            const file = new File([blob], `ageinfo-${theme}.png`, { type: 'image/png' });
 
             // Check if Web Share API supports files
-            if (navigator.share && navigator.canShare && navigator.canShare({ files: [new File([blob], 'image.png', { type: 'image/png' })] })) {
+            if (typeof navigator !== 'undefined' && 'share' in navigator && (navigator as any).canShare && (navigator as any).canShare({ files: [file] })) {
                 await navigator.share({
-                    files: [new File([blob], `ageinfo-${theme}.png`, { type: 'image/png' })],
+                    files: [file],
                     title: 'My Journey',
                     text: 'Check out my life infographic on AgeInfo.Online!'
                 });
                 toast.success('Shared successfully!', { id: toastId });
             } else {
-                // Fallback for desktop or unsupported browsers
-                await downloadInfographic(elementToCapture, `ageinfo-${theme}-poster`, {
-                    width: 1080,
-                    height: theme === 'classic' ? 1350 : 1920
-                });
-                toast.info('Sharing not supported on this device. Image downloaded instead.', { id: toastId });
+                // Fallback: Open Custom Share Modal
+                toast.dismiss(toastId);
+                setShowShareFallback(true);
+                // Also save the blob URL for the fallback modal to use (preview/download)
+                // For now, we might just assume the modal handles "Copy Link" and "Download" re-trigger
+                // Or we can pass the blob to the modal? 
+                // Let's just set the state for now and handle the logic.
+                setGeneratedBlob(blob);
             }
-            onClose?.();
+            onClose?.(); // Close the main generator? Maybe wait if showing fallback?
+            // Actually if we show fallback, we shouldn't close the main generator yet, or we show the fallback ON TOP of it.
+            // Let's NOT close onClose() if fallback is triggered.
 
         } catch (error) {
             if ((error as Error).name !== 'AbortError') {
@@ -292,6 +301,70 @@ export function InfographicGenerator({ birthDate, age, onClose }: InfographicGen
                     </div>
                 </div>
             </div>
+            {/* Fallback Share Modal Overlay */}
+            {showShareFallback && (
+                <div className="absolute inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in duration-200">
+                    <div className="bg-white dark:bg-zinc-900 rounded-2xl shadow-2xl p-6 w-full max-w-sm space-y-6">
+                        <div className="text-center">
+                            <h3 className="text-xl font-bold mb-2">Share Your Journey</h3>
+                            <p className="text-sm text-zinc-500">Native sharing is not supported on this browser. Choose an option below:</p>
+                        </div>
+
+                        <div className="space-y-3">
+                            <Button
+                                onClick={() => {
+                                    if (generatedBlob) {
+                                        const url = URL.createObjectURL(generatedBlob);
+                                        const a = document.createElement('a');
+                                        a.href = url;
+                                        a.download = `ageinfo-${theme}.png`;
+                                        a.click();
+                                        URL.revokeObjectURL(url);
+                                        toast.success('Image downloaded!');
+                                        setShowShareFallback(false);
+                                    }
+                                }}
+                                className="w-full gap-2"
+                            >
+                                <Download className="w-4 h-4" />
+                                Download Image
+                            </Button>
+
+                            <Button
+                                variant="outline"
+                                onClick={() => {
+                                    if (generatedBlob) {
+                                        try {
+                                            // Try to write to clipboard
+                                            navigator.clipboard.write([
+                                                new ClipboardItem({
+                                                    [generatedBlob.type]: generatedBlob
+                                                })
+                                            ]);
+                                            toast.success('Image copied to clipboard!');
+                                        } catch (err) {
+                                            toast.error('Failed to copy image to clipboard.');
+                                        }
+                                        setShowShareFallback(false);
+                                    }
+                                }}
+                                className="w-full gap-2"
+                            >
+                                <Share2 className="w-4 h-4" />
+                                Copy Image
+                            </Button>
+
+                            <Button
+                                variant="ghost"
+                                onClick={() => setShowShareFallback(false)}
+                                className="w-full text-zinc-500"
+                            >
+                                Cancel
+                            </Button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

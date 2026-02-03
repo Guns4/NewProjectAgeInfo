@@ -1,6 +1,5 @@
 'use client';
 
-import * as React from 'react';
 import { Link } from '@/i18n/routing';
 import Image from 'next/image';
 import { motion, useScroll, useSpring } from 'framer-motion';

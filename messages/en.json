@@ -106,11 +106,42 @@
         "nextBirthday": {
             "message": "Your next birthday is in {days} days!",
             "today": "Happy Birthday! 🎉"
+        },
+        "workLife": {
+            "title": "Life vs Work Balance",
+            "workHours": "Hours Working",
+            "weekendHours": "Weekend Hours",
+            "motivation": "Remember to rest, you've survived {holidays} amazing holidays!",
+            "estText": "From your total age, you've spent approximately {work} hours working and {weekend} hours on weekends."
+        },
+        "YearInReview": {
+            "button": "Play My Year",
+            "slide1": "This year you are {age} years old",
+            "slide2": "You survived {workDays} work days",
+            "slide3": "Your {zodiac} shines brightest in {month}",
+            "cta": "Share My Annual Journey",
+            "title": "Your Year in AgeInfo"
+        },
+        "GiftRecommendation": {
+            "title": "Treat Yourself or Someone Special",
+            "subtitle": "Curated gift ideas based on age & interests",
+            "genderLabel": "Looking for:",
+            "genderAny": "Any",
+            "genderMale": "Him",
+            "genderFemale": "Her",
+            "buyButton": "Search Deals",
+            "categories": {
+                "toys": "Educational Toys",
+                "tech": "Gadgets & Tech",
+                "hobby": "Hobbies & DIY",
+                "wellness": "Health & Wellness",
+                "fashion": "Style & Accessories",
+                "legacy": "Memoirs & Comfort"
+            }
         }
     },
     "Footer": {
         "copyright": "© {year} AgeInfo. All rights reserved.",
-        "madeWith": "Made with ❤️ for age enthusiasts",
         "links": {
             "privacy": "Privacy Policy",
             "terms": "Terms of Service",

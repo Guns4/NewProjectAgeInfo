@@ -7,6 +7,7 @@ import { Calendar, Star, PawPrint, Sparkles, Download } from 'lucide-react';
 import { useLocale } from 'next-intl';
 import { generateInsights } from '@/services/insightService';
 import { ShareableIdentityCard } from './ShareableIdentityCard';
+import { SmartDateFinder } from './SmartDateFinder';
 import { downloadStoryImage } from '@/lib/downloadStoryImage';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
@@ -182,6 +183,13 @@ export function IdentitySection({ date, age, className, onReset }: IdentitySecti
                         shio={shio}
                         insight={insights}
                     />
+                </div>
+            )}
+
+            {/* Phase 495.2: Smart Date Finder */}
+            {age && (
+                <div className="mt-8">
+                    <SmartDateFinder />
                 </div>
             )}
 

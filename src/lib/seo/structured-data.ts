@@ -10,7 +10,7 @@
  * - BreadcrumbList (for navigation)
  */
 
-import { routing } from '@/i18n/routing';
+
 
 export interface StructuredDataConfig {
     locale: string;
@@ -118,7 +118,6 @@ export function generateWebApplicationSchema(config: StructuredDataConfig) {
  * const schema = generateFAQPageSchema({ url: '...', locale: 'en' }, faqData);
  */
 export function generateFAQPageSchema(
-    config: StructuredDataConfig,
     faqItems: FAQItem[]
 ) {
     return {

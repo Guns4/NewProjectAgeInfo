@@ -28,6 +28,7 @@ export interface TimeCapsule {
 export async function getTimeCapsule(year: number): Promise<TimeCapsule> {
     // Check if we have curated data for this year
     const yearKey = year.toString();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const data = (historicalData as Record<string, any>)[yearKey];
 
     if (data) {
@@ -63,5 +64,7 @@ export function hasHistoricalData(year: number): boolean {
  * Get available years in the database
  */
 export function getAvailableYears(): number[] {
-    return Object.keys(historicalData).map(y => parseInt(y)).sort((a, b) => b - a);
+    return Object.keys(historicalData)
+        .map((y) => parseInt(y))
+        .sort((a, b) => b - a);
 }

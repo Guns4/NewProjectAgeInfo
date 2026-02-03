@@ -4,12 +4,13 @@ import '../globals.css';
 import { defaultViewport } from '@/lib';
 import { Navbar, Footer, ThemeProvider } from '@/components/shared';
 import { NextIntlClientProvider } from 'next-intl';
-import { getMessages, getTranslations } from 'next-intl/server';
+import { getMessages, getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
 import { Toaster } from '@/components/ui';
 import { generateWebsiteSchema } from '@/lib/seo/structured-data';
 import { QueryProvider } from '@/components/providers/QueryProvider';
+import Script from 'next/script';
 
 const inter = Inter({
     variable: '--font-inter',
@@ -33,6 +34,10 @@ const pressStart = Press_Start_2P({
 });
 
 export const viewport: Viewport = defaultViewport;
+
+export function generateStaticParams() {
+    return routing.locales.map((locale) => ({ locale }));
+}
 
 export async function generateMetadata({
     params,
@@ -116,6 +121,9 @@ export default async function RootLayout({
 }>) {
     const { locale } = await params;
 
+    // Enable static rendering
+    unstable_setRequestLocale(locale);
+
     if (!routing.locales.includes(locale as any)) {
         notFound();
     }
@@ -133,10 +141,11 @@ export default async function RootLayout({
         <html lang={locale} suppressHydrationWarning>
             <head>
                 {/* Google AdSense */}
-                <script
+                <Script
                     async
                     src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5099892029462046"
                     crossOrigin="anonymous"
+                    strategy="afterInteractive"
                 />
                 {/* Structured Data (JSON-LD) */}
                 <script

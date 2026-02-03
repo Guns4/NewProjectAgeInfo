@@ -3,6 +3,7 @@ import { Inter, Manrope } from 'next/font/google';
 import './globals.css';
 import { defaultMetadata, defaultViewport } from '@/lib';
 import { ThemeProvider } from '@/components/shared';
+import Script from 'next/script';
 
 const inter = Inter({
   variable: '--font-inter',
@@ -24,6 +25,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <Script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5099892029462046"
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
+        />
+      </head>
       <body className={`${inter.variable} ${manrope.variable} antialiased`}>
         <ThemeProvider
           attribute="class"

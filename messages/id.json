@@ -111,11 +111,47 @@
         "nextBirthday": {
             "message": "Ulang tahunmu tinggal {days} hari lagi!",
             "today": "Selamat Ulang Tahun! 🎉"
+        },
+        "workLife": {
+            "title": "Keseimbangan Hidup vs Kerja",
+            "motivation": "Ingat untuk beristirahat, kamu sudah melewati {holidays} hari libur yang luar biasa!",
+            "estText": "Dari total umurmu, kamu telah menghabiskan sekitar {work} jam untuk bekerja dan {weekend} jam untuk akhir pekan."
+        },
+        "workLifeSummary": "Anda telah melewati sekitar {workHours} jam kerja dan menikmati {weekendHours} jam akhir pekan.",
+        "YearInReview": {
+            "button": "Putar Tahun Saya",
+            "slide1": "Tahun ini usiamu {age} tahun",
+            "slide2": "Kamu melewati {workDays} hari kerja",
+            "slide3": "Zodiak {zodiac}-mu paling bersinar di bulan {month}",
+            "cta": "Bagikan Perjalanan Tahunanku",
+            "title": "Tahunmu di AgeInfo"
+        },
+        "GiftRecommendation": {
+            "title": "Hadiah Spesial Untukmu",
+            "subtitle": "Ide kado pilihan berdasarkan usia & minat",
+            "genderLabel": "Mencari untuk:",
+            "genderAny": "Umum",
+            "genderMale": "Pria",
+            "genderFemale": "Wanita",
+            "buyButton": "Cari Promo",
+            "categories": {
+                "toys": "Mainan Edukasi",
+                "tech": "Gadget & Tekno",
+                "hobby": "Hobi & Kreativitas",
+                "wellness": "Kesehatan & Relaksasi",
+                "fashion": "Gaya & Aksesoris",
+                "legacy": "Kenangan & Kenyamanan"
+            }
         }
+    },
+    "Validation": {
+        "required": "Field ini wajib diisi",
+        "invalidDate": "Tanggal tidak valid",
+        "futureDate": "Tanggal lahir nggak boleh di masa depan",
+        "tooOld": "Masukkan tanggal yang lebih baru"
     },
     "Footer": {
         "copyright": "© {year} AgeInfo. Hak cipta dilindungi.",
-        "madeWith": "Dibuat dengan ❤️ untuk pecinta angka",
         "links": {
             "privacy": "Kebijakan Privasi",
             "terms": "Syarat Layanan",

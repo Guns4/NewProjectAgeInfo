@@ -93,7 +93,7 @@ export function LifeWorkSlider({ currentAge }: LifeWorkSliderProps) {
                         max={80}
                         step={1}
                         onValueChange={(val) => {
-                            if (val && val.length > 0) {
+                            if (val && val.length > 0 && typeof val[0] === 'number') {
                                 setRetirementAge(val[0]);
                             }
                         }}

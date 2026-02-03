@@ -17,10 +17,6 @@ export default async function FAQPage({
 
     // Generate FAQ schema
     const faqSchema = generateFAQPageSchema(
-        {
-            url: `https://ageinfo.online/${locale}/faq`,
-            locale,
-        },
         faqData
     );
 

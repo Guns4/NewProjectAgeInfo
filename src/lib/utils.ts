@@ -1,6 +1,6 @@
 /**
  * Utility Functions - Fase 90.1: Localized Formatting
- * 
+ *
  * Provides locale-aware formatting for dates and numbers
  * Supports: English (en) and Indonesian (id)
  */
@@ -19,15 +19,15 @@ export function cn(...inputs: ClassValue[]) {
 
 /**
  * Format date according to locale
- * 
+ *
  * @param date - Date to format
  * @param locale - Locale code ('en' or 'id')
  * @returns Formatted date string
- * 
+ *
  * @example
  * formatLocaleDate(new Date('1945-08-17'), 'id')
  * // Returns: "17 Agustus 1945"
- * 
+ *
  * formatLocaleDate(new Date('1945-08-17'), 'en')
  * // Returns: "August 17th, 1945"
  */
@@ -40,15 +40,15 @@ export function formatLocaleDate(date: Date, locale: 'en' | 'id'): string {
 
 /**
  * Format number with locale-specific thousand separators
- * 
+ *
  * @param value - Number to format
  * @param locale - Locale code ('en' or 'id')
  * @returns Formatted number string
- * 
+ *
  * @example
  * formatLocaleNumber(1234567, 'id')
  * // Returns: "1.234.567" (dot separator for Indonesian)
- * 
+ *
  * formatLocaleNumber(1234567, 'en')
  * // Returns: "1,234,567" (comma separator for English)
  */
@@ -59,24 +59,20 @@ export function formatLocaleNumber(value: number, locale: 'en' | 'id'): string {
 
 /**
  * Format number with decimal places
- * 
+ *
  * @param value - Number to format
  * @param locale - Locale code ('en' or 'id')
  * @param decimals - Number of decimal places (default: 2)
  * @returns Formatted number string with decimals
- * 
+ *
  * @example
  * formatLocaleDecimal(1234.5678, 'id', 2)
  * // Returns: "1.234,57"
- * 
+ *
  * formatLocaleDecimal(1234.5678, 'en', 2)
  * // Returns: "1,234.57"
  */
-export function formatLocaleDecimal(
-    value: number,
-    locale: 'en' | 'id',
-    decimals: number = 2
-): string {
+export function formatLocaleDecimal(value: number, locale: 'en' | 'id', decimals: number = 2): string {
     const localeCode = locale === 'id' ? 'id-ID' : 'en-US';
     return new Intl.NumberFormat(localeCode, {
         minimumFractionDigits: decimals,
@@ -86,24 +82,20 @@ export function formatLocaleDecimal(
 
 /**
  * Format currency with locale-specific formatting
- * 
+ *
  * @param value - Amount to format
  * @param locale - Locale code ('en' or 'id')
  * @param currency - Currency code (default: 'USD' for en, 'IDR' for id)
  * @returns Formatted currency string
- * 
+ *
  * @example
  * formatLocaleCurrency(1000000, 'id')
  * // Returns: "Rp1.000.000"
- * 
+ *
  * formatLocaleCurrency(1000, 'en')
  * // Returns: "$1,000.00"
  */
-export function formatLocaleCurrency(
-    value: number,
-    locale: 'en' | 'id',
-    currency?: string
-): string {
+export function formatLocaleCurrency(value: number, locale: 'en' | 'id', currency?: string): string {
     const localeCode = locale === 'id' ? 'id-ID' : 'en-US';
     const currencyCode = currency || (locale === 'id' ? 'IDR' : 'USD');
 
@@ -115,15 +107,15 @@ export function formatLocaleCurrency(
 
 /**
  * Format relative time (e.g., "2 hours ago", "in 3 days")
- * 
+ *
  * @param date - Date to compare
  * @param locale - Locale code ('en' or 'id')
  * @returns Relative time string
- * 
+ *
  * @example
  * formatRelativeTime(new Date(Date.now() - 3600000), 'en')
  * // Returns: "1 hour ago"
- * 
+ *
  * formatRelativeTime(new Date(Date.now() - 3600000), 'id')
  * // Returns: "1 jam yang lalu"
  */
@@ -166,10 +158,10 @@ export interface AgeResult {
 
 /**
  * Calculate precise age from birth date
- * 
+ *
  * @param birthDate - Date of birth
  * @returns Complete age breakdown
- * 
+ *
  * @example
  * calculateAge(new Date('2000-01-01'))
  * // Returns: { years: 24, months: 1, days: 1, ... }
@@ -219,11 +211,11 @@ export function calculateAge(birthDate: Date): AgeResult {
 
 /**
  * Format age result with locale-specific number formatting
- * 
+ *
  * @param age - Age result from calculateAge
  * @param locale - Locale code ('en' or 'id')
  * @returns Object with formatted age values
- * 
+ *
  * @example
  * const age = calculateAge(new Date('2000-01-01'));
  * const formatted = formatAgeResult(age, 'id');
@@ -246,9 +238,9 @@ export function formatAgeResult(age: AgeResult, locale: 'en' | 'id') {
 
 /**
  * Smart Unit Formatting - Fase 190.3
- * 
+ *
  * Formats time units based on locale and pluralization rules.
- * 
+ *
  * @param value - The numeric value (used for pluralization check)
  * @param unit - The unit type ('year', 'month', 'day')
  * @param locale - Locale code ('en' or 'id')
@@ -263,7 +255,7 @@ export function formatUnit(value: number, unit: 'year' | 'month' | 'day', locale
         const labels = {
             year: 'Tahun',
             month: 'Bulan',
-            day: 'Hari'
+            day: 'Hari',
         };
         return labels[unit];
     }
@@ -276,7 +268,7 @@ export function formatUnit(value: number, unit: 'year' | 'month' | 'day', locale
     const labels = {
         year: { one: 'Year', other: 'Years' },
         month: { one: 'Month', other: 'Months' },
-        day: { one: 'Day', other: 'Days' }
+        day: { one: 'Day', other: 'Days' },
     };
 
     // Return specific plural form, fallback to 'other' if needed (though en simple has one/other)
